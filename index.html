@@ -1,0 +1,2911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore a structured certification exam preparation portal with exam resources, topic guidance, study planning advice, and searchable certification materials.">
+  <meta name="theme-color" content="#155eef">
+  <title>Certification Exam Preparation Resources</title>
+
+  <style>
+    :root {
+      --primary: #155eef;
+      --primary-dark: #0f3fa8;
+      --accent: #16a39a;
+      --background: #f5f7fb;
+      --surface: #ffffff;
+      --surface-alt: #eef3f9;
+      --text-dark: #172033;
+      --text-muted: #64748b;
+      --border: #dce3ec;
+      --white: #ffffff;
+      --shadow-sm: 0 2px 8px rgba(15, 35, 65, 0.06);
+      --shadow-md: 0 10px 28px rgba(15, 35, 65, 0.09);
+      --radius: 16px;
+      --header-height: 64px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-dark);
+      background: var(--background);
+      line-height: 1.6;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    svg {
+      flex: 0 0 auto;
+      max-width: 100%;
+    }
+
+    .icon-search {
+      width: 19px;
+      height: 19px;
+    }
+
+    .icon-standard {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon-small {
+      width: 16px;
+      height: 16px;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 2000;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--text-dark);
+      color: var(--white);
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--header-height);
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .2s ease;
+    }
+
+    .site-header.scrolled {
+      box-shadow: 0 4px 18px rgba(15, 35, 65, .09);
+    }
+
+    .progress-line {
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-dark);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      white-space: nowrap;
+    }
+
+    .brand:hover {
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .brand-mark svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .desktop-nav {
+      display: none;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .desktop-nav a {
+      padding: 8px 11px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: .92rem;
+      font-weight: 650;
+    }
+
+    .desktop-nav a:hover,
+    .desktop-nav a:focus-visible,
+    .desktop-nav a.active {
+      color: var(--primary);
+      background: var(--surface-alt);
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .header-search-btn,
+    .menu-btn {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--surface);
+      color: var(--text-dark);
+    }
+
+    .header-search-btn:hover,
+    .menu-btn:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .menu-btn {
+      display: grid;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: var(--header-height) 0 0;
+      z-index: 999;
+      display: none;
+      padding: 18px 16px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .mobile-menu.open {
+      display: block;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 13px 10px;
+      color: var(--text-dark);
+      font-weight: 650;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-menu a:hover {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 64px 0 50px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      right: -100px;
+      top: 30px;
+      border: 30px solid rgba(22, 163, 154, .08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0 0 13px;
+      color: var(--primary);
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.15rem, 7vw, 4.1rem);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 18px 0 0;
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+
+    .hero-search {
+      max-width: 760px;
+      margin-top: 26px;
+    }
+
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 5px 6px 5px 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .search-row:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(21, 94, 239, .10);
+    }
+
+    .search-row svg {
+      color: var(--text-muted);
+    }
+
+    .search-row input {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      color: var(--text-dark);
+      background: transparent;
+    }
+
+    .search-row input::placeholder {
+      color: #8996a8;
+    }
+
+    .clear-search {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      display: none;
+      place-items: center;
+      border: 0;
+      border-radius: 8px;
+      background: var(--surface-alt);
+      color: var(--text-muted);
+    }
+
+    .clear-search.visible {
+      display: grid;
+    }
+
+    .clear-search:hover {
+      color: var(--primary);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 13px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 10px 17px;
+      border-radius: 9px;
+      font-weight: 750;
+      font-size: .92rem;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .btn-primary {
+      border: 1px solid var(--primary);
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      text-decoration: none;
+      box-shadow: 0 7px 16px rgba(21, 94, 239, .20);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dark);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .hero-panel {
+      position: relative;
+      z-index: 1;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface-alt);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-panel-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+    }
+
+    .panel-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 11px;
+      background: var(--white);
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    .panel-icon svg {
+      width: 21px;
+      height: 21px;
+    }
+
+    .hero-panel h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .hero-panel p {
+      margin: 5px 0 0;
+      color: var(--text-muted);
+      font-size: .91rem;
+    }
+
+    .stats {
+      padding: 30px 0;
+      background: var(--background);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .stat-card {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-number {
+      display: block;
+      color: var(--primary);
+      font-size: 1.7rem;
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: -.03em;
+    }
+
+    .stat-label {
+      display: block;
+      margin-top: 6px;
+      color: var(--text-muted);
+      font-size: .83rem;
+      font-weight: 650;
+    }
+
+    section {
+      scroll-margin-top: 80px;
+    }
+
+    .section {
+      padding: 62px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 24px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(1.65rem, 4vw, 2.25rem);
+      letter-spacing: -.03em;
+    }
+
+    .section-heading p {
+      max-width: 720px;
+      margin: 0;
+      color: var(--text-muted);
+    }
+
+    .library-toolbar {
+      margin-bottom: 26px;
+    }
+
+    .search-status {
+      min-height: 22px;
+      margin-top: 9px;
+      color: var(--text-muted);
+      font-size: .86rem;
+    }
+
+    .category-filters {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 3px 0 9px;
+      scrollbar-width: thin;
+    }
+
+    .filter-chip {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--text-muted);
+      font-size: .84rem;
+      font-weight: 700;
+    }
+
+    .filter-chip:hover,
+    .filter-chip.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .category-section {
+      margin-top: 42px;
+    }
+
+    .category-section:first-child {
+      margin-top: 0;
+    }
+
+    .category-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .category-heading h3 {
+      margin: 0;
+      font-size: 1.18rem;
+      letter-spacing: -.015em;
+    }
+
+    .category-count {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--surface-alt);
+      color: var(--text-muted);
+      font-size: .76rem;
+      font-weight: 750;
+    }
+
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+      grid-auto-rows: 1fr;
+      gap: 15px;
+    }
+
+    .exam-card {
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .exam-card:hover {
+      border-color: #c5d3e5;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .exam-card.is-hidden {
+      display: none;
+    }
+
+    .exam-card.search-match {
+      border-color: var(--primary);
+    }
+
+    .exam-meta {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 13px;
+    }
+
+    .code-badge {
+      min-width: 0;
+      max-width: 68%;
+      padding: 5px 8px;
+      overflow: hidden;
+      border: 1px solid rgba(21, 94, 239, .15);
+      border-radius: 7px;
+      background: rgba(21, 94, 239, .08);
+      color: var(--primary);
+      font-size: .74rem;
+      line-height: 1.25;
+      font-weight: 850;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .vendor {
+      min-width: 0;
+      color: var(--text-muted);
+      font-size: .75rem;
+      font-weight: 700;
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .exam-card h4 {
+      height: 3.25em;
+      margin: 0 0 9px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      font-size: 1.02rem;
+      line-height: 1.62;
+      letter-spacing: -.012em;
+    }
+
+    .exam-description {
+      height: 4.8em;
+      margin: 0 0 13px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      color: var(--text-muted);
+      font-size: .86rem;
+      line-height: 1.6;
+    }
+
+    .knowledge-label {
+      margin-bottom: 7px;
+      color: var(--text-dark);
+      font-size: .73rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .055em;
+    }
+
+    .knowledge-tags {
+      height: 54px;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      gap: 6px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .knowledge-tag {
+      max-width: 100%;
+      padding: 4px 7px;
+      border: 1px solid rgba(22, 163, 154, .18);
+      border-radius: 6px;
+      background: rgba(22, 163, 154, .07);
+      color: #13756f;
+      font-size: .72rem;
+      line-height: 1.35;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .approach {
+      height: 4.7em;
+      margin: 0;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      color: var(--text-muted);
+      font-size: .82rem;
+      line-height: 1.56;
+    }
+
+    .resource-area {
+      min-height: 77px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-top: auto;
+      padding-top: 14px;
+    }
+
+    .resource-button {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 40px;
+      padding: 8px 11px;
+      border-radius: 8px;
+      background: var(--primary);
+      color: var(--white);
+      font-size: .82rem;
+      font-weight: 750;
+      text-align: center;
+      transition: background .18s ease, transform .18s ease;
+    }
+
+    .resource-button:hover {
+      background: var(--primary-dark);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .resource-button svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .resource-extra {
+      min-height: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .resource-extra a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 21px;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: var(--surface-alt);
+      color: var(--primary);
+      font-size: .68rem;
+      font-weight: 750;
+    }
+
+    .highlight {
+      padding: 0 2px;
+      border-radius: 3px;
+      background: #d9e8ff;
+      color: var(--primary-dark);
+    }
+
+    .no-results {
+      display: none;
+      padding: 34px 20px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      text-align: center;
+    }
+
+    .no-results.visible {
+      display: block;
+    }
+
+    .no-results h3 {
+      margin: 0 0 5px;
+      font-size: 1.05rem;
+    }
+
+    .no-results p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: .9rem;
+    }
+
+    .guide {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .guide-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .guide-card {
+      padding: 19px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--background);
+    }
+
+    .guide-number {
+      display: inline-grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      margin-bottom: 11px;
+      border-radius: 8px;
+      background: var(--primary);
+      color: var(--white);
+      font-size: .78rem;
+      font-weight: 850;
+    }
+
+    .guide-card h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .guide-card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: .85rem;
+    }
+
+    .faq-list {
+      max-width: 900px;
+      margin-inline: auto;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 17px 0;
+      border: 0;
+      background: transparent;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 750;
+    }
+
+    .faq-question:hover {
+      color: var(--primary);
+    }
+
+    .faq-icon {
+      transition: transform .2s ease;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 38px 18px 0;
+      color: var(--text-muted);
+      font-size: .9rem;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .footer {
+      padding: 44px 0 26px;
+      background: #101a2b;
+      color: #d9e2ef;
+    }
+
+    .footer-grid {
+      display: grid;
+      gap: 28px;
+    }
+
+    .footer h2,
+    .footer h3 {
+      margin: 0 0 9px;
+      color: var(--white);
+    }
+
+    .footer h2 {
+      font-size: 1.05rem;
+    }
+
+    .footer h3 {
+      font-size: .85rem;
+    }
+
+    .footer p,
+    .footer li,
+    .footer a {
+      color: #9fafc2;
+      font-size: .82rem;
+    }
+
+    .footer p {
+      max-width: 430px;
+      margin: 0;
+    }
+
+    .footer ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .footer li + li {
+      margin-top: 5px;
+    }
+
+    .footer a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 30px;
+      padding-top: 17px;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    .disclaimer {
+      color: #9fafc2;
+      font-size: .76rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(21, 94, 239, .28);
+      outline-offset: 2px;
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        width: min(1180px, calc(100% - 44px));
+      }
+
+      .hero {
+        padding: 78px 0 62px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .guide-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1.5fr 1fr 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .desktop-nav {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: none !important;
+      }
+
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.5fr) minmax(280px, .7fr);
+      }
+
+      .guide-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .section {
+        padding: 76px 0;
+      }
+    }
+
+    @media (min-width: 1120px) {
+      .exam-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="progress-line" id="progress-line" aria-hidden="true"></div>
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Certification Exam Preparation Resources home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3 4.5 6.5v5.7c0 4.5 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.3 7.5-8.8V6.5L12 3Z"/>
+            <path d="m8.5 12 2.2 2.2 4.8-5"/>
+          </svg>
+        </span>
+        <span>ExamPrep Resources</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a class="active" href="#library">Exam Library</a>
+        <a href="#guide">Preparation Guide</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="header-search-btn" id="header-search" type="button" aria-label="Search exam resources">
+          <svg class="icon-search" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="m20 20-4-4"/>
+          </svg>
+        </button>
+        <button class="menu-btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation menu">
+          <svg class="icon-standard menu-open-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg class="icon-standard menu-close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+            <path d="m6 6 12 12M18 6 6 18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+      <a href="#library">Exam Library</a>
+      <a href="#guide">Preparation Guide</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Structured certification study portal</p>
+          <h1>Certification Exam Preparation Resources</h1>
+          <p class="hero-copy">
+            Find focused exam resources, understand the subjects behind each certification, and build a practical study routine around the areas that matter most.
+          </p>
+
+          <div class="hero-search" id="hero-search">
+            <label class="sr-only" for="exam-search">Search certification exams</label>
+            <div class="search-row">
+              <svg class="icon-search" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="m20 20-4-4"/>
+              </svg>
+              <input id="exam-search" type="search" autocomplete="off" placeholder="Search by exam code, name, vendor, topic, or category">
+              <button class="clear-search" id="clear-search" type="button" aria-label="Clear search">
+                <svg class="icon-small" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m6 6 12 12M18 6 6 18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn-primary" href="#library">
+              Browse exam library
+              <svg class="icon-small" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M13 6l6 6-6 6"/>
+              </svg>
+            </a>
+            <a class="btn-secondary" href="#guide">View study guide</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel reveal">
+          <div class="hero-panel-top">
+            <span class="panel-icon" aria-hidden="true">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>
+                <path d="M8 6h8M8 10h8"/>
+              </svg>
+            </span>
+            <div>
+              <h2>Use resources as part of a wider study plan</h2>
+              <p>Start with concepts and official documentation, then use practice material to check understanding and identify weak areas.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Library statistics">
+      <div class="container stats-grid">
+        <div class="stat-card reveal">
+          <span class="stat-number" id="total-exams">0</span>
+          <span class="stat-label">Exam resources</span>
+        </div>
+        <div class="stat-card reveal">
+          <span class="stat-number" id="total-resources">0</span>
+          <span class="stat-label">Linked resources</span>
+        </div>
+        <div class="stat-card reveal">
+          <span class="stat-number" id="total-categories">0</span>
+          <span class="stat-label">Study categories</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="library">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Explore the library</p>
+          <h2>Certification Exam Library</h2>
+          <p>Browse resources by subject area or search the complete library for a particular exam, technology, vendor, or knowledge topic.</p>
+        </div>
+
+        <div class="library-toolbar">
+          <div class="category-filters" id="category-filters" aria-label="Filter exams by category"></div>
+          <div class="search-status" id="search-status" aria-live="polite"></div>
+        </div>
+
+        <div id="exam-library">
+
+          <section class="category-section" data-category="DevOps and Cloud">
+            <div class="category-heading">
+              <h3>DevOps and Cloud</h3>
+              <span class="category-count">5 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="DevOps-SRE" data-vendor="Technology" data-category="DevOps and Cloud" data-topics="site reliability engineering observability incident response automation">
+                <div class="exam-meta"><span class="code-badge">DevOps-SRE</span><span class="vendor">Technology</span></div>
+                <h4>DevOps and Site Reliability Engineering</h4>
+                <p class="exam-description">This resource focuses on DevOps and SRE foundations, including automation, reliability thinking, observability, incident response, and operational improvement.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">SRE</span><span class="knowledge-tag">Observability</span><span class="knowledge-tag">Automation</span><span class="knowledge-tag">Incidents</span></div>
+                <p class="approach">Study delivery practices first, then connect monitoring, incident handling, automation, and reliability concepts through practical operational scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/updated-2026-devops-sre-dumps-verified-questions-study-guide-129491.html">View DevOps-SRE preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="ChromeOS-Administrator" data-vendor="Google" data-category="DevOps and Cloud" data-topics="ChromeOS administration device management policies security deployment">
+                <div class="exam-meta"><span class="code-badge">ChromeOS-Administrator</span><span class="vendor">Google</span></div>
+                <h4>ChromeOS Administrator</h4>
+                <p class="exam-description">The ChromeOS administrator resource covers device administration, policy management, security controls, deployment planning, and centralized management practices.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Device Policy</span><span class="knowledge-tag">Security</span><span class="knowledge-tag">Deployment</span><span class="knowledge-tag">Management</span></div>
+                <p class="approach">Review administration concepts systematically, then reinforce policy, security, deployment, and device management through realistic organizational scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/chromeos-administrator-exam-dumps-updated-2026-real-questions-verified-answers-129492.html">View ChromeOS Administrator preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="Observability-Self-Hosted-Fundamentals" data-vendor="Observability" data-category="DevOps and Cloud" data-topics="observability monitoring telemetry self hosted logs metrics traces">
+                <div class="exam-meta"><span class="code-badge">Observability-Self-Hosted-Fundamentals</span><span class="vendor">Observability</span></div>
+                <h4>Observability Self-Hosted Fundamentals</h4>
+                <p class="exam-description">This resource introduces self-hosted observability concepts, covering telemetry, monitoring, logs, metrics, traces, and operational visibility across systems.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Telemetry</span><span class="knowledge-tag">Metrics</span><span class="knowledge-tag">Logs</span><span class="knowledge-tag">Tracing</span></div>
+                <p class="approach">Learn how telemetry types work together, then practice interpreting operational signals and selecting useful monitoring approaches for distributed environments.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://rare-books.library.sites.carleton.edu/observability-self-hosted-fundamentals-dumps/2026-observability-self-hosted-fundamentals-exam-dumps--guide?t=1791187312848">View Observability Self-Hosted preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="Dynatrace-Associate" data-vendor="Dynatrace" data-category="DevOps and Cloud" data-topics="Dynatrace observability monitoring application performance dashboards">
+                <div class="exam-meta"><span class="code-badge">Dynatrace-Associate</span><span class="vendor">Dynatrace</span></div>
+                <h4>Dynatrace Associate</h4>
+                <p class="exam-description">The Dynatrace Associate resource explores observability fundamentals, application monitoring, dashboards, service relationships, and practical performance analysis.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Monitoring</span><span class="knowledge-tag">Applications</span><span class="knowledge-tag">Dashboards</span><span class="knowledge-tag">Performance</span></div>
+                <p class="approach">Build an observability foundation before practicing application analysis, service relationships, dashboard interpretation, and performance troubleshooting scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-dynatrace-associate-exam-dumps-with-authentic-questions-answers">View Dynatrace Associate preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="S10-300" data-vendor="Technology" data-category="DevOps and Cloud" data-topics="cloud infrastructure operations systems deployment administration">
+                <div class="exam-meta"><span class="code-badge">S10-300</span><span class="vendor">Technology</span></div>
+                <h4>S10-300 Infrastructure and Operations</h4>
+                <p class="exam-description">This preparation resource centers on infrastructure operations, deployment concepts, systems administration, service reliability, and cloud-oriented operational practices.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Infrastructure</span><span class="knowledge-tag">Operations</span><span class="knowledge-tag">Deployment</span><span class="knowledge-tag">Reliability</span></div>
+                <p class="approach">Review infrastructure fundamentals first, then connect deployment, administration, operations, and reliability concepts with practical troubleshooting examples.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-s10-300-exam-dumps-with-authentic-questions-answers">View S10-300 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Security">
+            <div class="category-heading">
+              <h3>Cybersecurity</h3>
+              <span class="category-count">14 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="GCFA" data-vendor="GIAC" data-category="Security" data-topics="digital forensics incident response memory analysis evidence">
+                <div class="exam-meta"><span class="code-badge">GCFA</span><span class="vendor">GIAC</span></div>
+                <h4>GIAC Certified Forensic Analyst</h4>
+                <p class="exam-description">GCFA study material centers on digital forensics, incident response, evidence analysis, memory investigation, and investigative techniques for complex systems.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Forensics</span><span class="knowledge-tag">Incident Response</span><span class="knowledge-tag">Memory</span><span class="knowledge-tag">Evidence</span></div>
+                <p class="approach">Work through forensic methodology first, then strengthen evidence handling, memory analysis, incident response, and investigative reasoning with case scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/latest-gcfa-exam-dumps-2026-verified-questions-answers-129493.html">View GCFA preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="GCIH" data-vendor="GIAC" data-category="Security" data-topics="incident handling hacker techniques containment eradication response">
+                <div class="exam-meta"><span class="code-badge">GCIH</span><span class="vendor">GIAC</span></div>
+                <h4>GIAC Certified Incident Handler</h4>
+                <p class="exam-description">GCIH preparation emphasizes incident handling, attacker techniques, containment, eradication, recovery, and practical response decisions during security events.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Incident Handling</span><span class="knowledge-tag">Attacks</span><span class="knowledge-tag">Containment</span><span class="knowledge-tag">Recovery</span></div>
+                <p class="approach">Learn response stages in sequence, then practice recognizing attack behavior, choosing containment actions, and reasoning through recovery situations.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGrj9MEQRj/">View GCIH preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CMMC-CCA" data-vendor="CMMC" data-category="Security" data-topics="CMMC assessment cybersecurity controls compliance evidence practices">
+                <div class="exam-meta"><span class="code-badge">CMMC-CCA</span><span class="vendor">CMMC</span></div>
+                <h4>CMMC Certified Cybersecurity Assessor</h4>
+                <p class="exam-description">CMMC-CCA material addresses assessment thinking, cybersecurity practices, evidence review, control evaluation, and structured compliance assessment activities.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Assessment</span><span class="knowledge-tag">Controls</span><span class="knowledge-tag">Evidence</span><span class="knowledge-tag">Compliance</span></div>
+                <p class="approach">Understand assessment principles first, then practice evaluating evidence, interpreting controls, documenting observations, and reaching defensible assessment conclusions.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://rare-books.library.sites.carleton.edu/cmmc-cca-dumps/2026-cmmc-cca-exam-dumps?t=1791187402508">View CMMC-CCA preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CIS-RCI" data-vendor="Security" data-category="Security" data-topics="risk cyber security governance controls resilience">
+                <div class="exam-meta"><span class="code-badge">CIS-RCI</span><span class="vendor">Security</span></div>
+                <h4>CIS Risk and Cybersecurity Integration</h4>
+                <p class="exam-description">This resource explores cybersecurity risk integration, governance, control considerations, resilience planning, and practical organizational risk decisions.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Cyber Risk</span><span class="knowledge-tag">Governance</span><span class="knowledge-tag">Controls</span><span class="knowledge-tag">Resilience</span></div>
+                <p class="approach">Connect risk concepts to governance and controls, then practice evaluating organizational scenarios and selecting proportionate cybersecurity responses.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGq_Q1EXa1/">View CIS-RCI preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CIS-FSM" data-vendor="Security" data-category="Security" data-topics="security management frameworks controls risk governance">
+                <div class="exam-meta"><span class="code-badge">CIS-FSM</span><span class="vendor">Security</span></div>
+                <h4>CIS-FSM Security Management</h4>
+                <p class="exam-description">CIS-FSM study content focuses on security management, governance frameworks, risk considerations, controls, and organizational security decision making.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Management</span><span class="knowledge-tag">Governance</span><span class="knowledge-tag">Risk</span><span class="knowledge-tag">Controls</span></div>
+                <p class="approach">Build management fundamentals first, then relate governance, risk, controls, and security priorities to practical organizational situations.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://rare-books.library.sites.carleton.edu/cis-fsm-dumps/2026-cis-fsm-exam-dumps---topic--guide?t=1791187609990">View CIS-FSM preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CIS-SM" data-vendor="Security" data-category="Security" data-topics="security management governance policies controls operations">
+                <div class="exam-meta"><span class="code-badge">CIS-SM</span><span class="vendor">Security</span></div>
+                <h4>CIS Security Management</h4>
+                <p class="exam-description">This preparation resource covers security management principles, governance, policy development, control selection, and operational security responsibilities.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Policies</span><span class="knowledge-tag">Governance</span><span class="knowledge-tag">Controls</span><span class="knowledge-tag">Operations</span></div>
+                <p class="approach">Study governance and policy concepts, then use practical scenarios to connect management decisions with controls and security operations.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://fanspo.com/nba/s/wizards/p/SJY1O1MKnfqtB5/no-1-verified-cis-sm-dumps-practice-test-2026">View CIS-SM preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="Security-Operations-Engineer" data-vendor="Security" data-category="Security" data-topics="security operations detection monitoring response SIEM">
+                <div class="exam-meta"><span class="code-badge">Security-Operations-Engineer</span><span class="vendor">Security</span></div>
+                <h4>Security Operations Engineer</h4>
+                <p class="exam-description">Security Operations Engineer preparation covers detection, monitoring, incident response, security tooling, operational workflows, and defensive engineering practices.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Detection</span><span class="knowledge-tag">Monitoring</span><span class="knowledge-tag">Response</span><span class="knowledge-tag">SIEM</span></div>
+                <p class="approach">Review defensive operations first, then connect detection, monitoring, response workflows, and tooling through realistic security operations scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/pass-security-operations-engineer-with-updated-exam-dumps-for-2026">View Security Operations Engineer preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="SecOps-Pro" data-vendor="Security" data-category="Security" data-topics="security operations detection threat response monitoring">
+                <div class="exam-meta"><span class="code-badge">SecOps-Pro</span><span class="vendor">Security</span></div>
+                <h4>SecOps Pro</h4>
+                <p class="exam-description">SecOps Pro material focuses on security operations, threat detection, monitoring, response processes, and practical defensive analysis in operational environments.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Threat Detection</span><span class="knowledge-tag">Monitoring</span><span class="knowledge-tag">Response</span><span class="knowledge-tag">Defense</span></div>
+                <p class="approach">Strengthen core SecOps workflows first, then practice threat analysis, monitoring decisions, response actions, and defensive prioritization.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/secops-pro-exam--latest-dumps--practice-questions-2026">View SecOps Pro preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="Cybersecurity-Practitioner" data-vendor="Cybersecurity" data-category="Security" data-topics="cybersecurity fundamentals threats controls security operations risk">
+                <div class="exam-meta"><span class="code-badge">Cybersecurity-Practitioner</span><span class="vendor">Cybersecurity</span></div>
+                <h4>Cybersecurity Practitioner</h4>
+                <p class="exam-description">This resource introduces practical cybersecurity concepts including threats, controls, risk management, defensive operations, and everyday security practices.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Threats</span><span class="knowledge-tag">Controls</span><span class="knowledge-tag">Risk</span><span class="knowledge-tag">Defense</span></div>
+                <p class="approach">Start with security fundamentals, then reinforce threat recognition, controls, risk decisions, and defensive practices through practical examples.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://help.fumotousa.com/en-US/Community/Post/48931">View Cybersecurity Practitioner preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CT-AI" data-vendor="Technology" data-category="Security" data-topics="AI security threats controls governance privacy model risk">
+                <div class="exam-meta"><span class="code-badge">CT-AI</span><span class="vendor">Technology</span></div>
+                <h4>CT-AI Artificial Intelligence Security</h4>
+                <p class="exam-description">CT-AI preparation examines artificial intelligence security concerns, model risks, privacy considerations, governance, threats, and defensive controls.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">AI Security</span><span class="knowledge-tag">Model Risk</span><span class="knowledge-tag">Privacy</span><span class="knowledge-tag">Governance</span></div>
+                <p class="approach">Understand AI-specific risks before studying controls, then connect model security, privacy, governance, and threat scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://fanspo.com/nba/s/wizards/p/RLPkb1XIxdqEDT/no-1-trusted-ct-ai-dumps-practice-test-2026">View CT-AI preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="NS0-004" data-vendor="Security" data-category="Security" data-topics="security networking infrastructure administration controls">
+                <div class="exam-meta"><span class="code-badge">NS0-004</span><span class="vendor">Security</span></div>
+                <h4>NS0-004 Network Security Fundamentals</h4>
+                <p class="exam-description">NS0-004 study content addresses network security foundations, infrastructure controls, secure administration, connectivity, and defensive technology concepts.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Network Security</span><span class="knowledge-tag">Infrastructure</span><span class="knowledge-tag">Controls</span><span class="knowledge-tag">Administration</span></div>
+                <p class="approach">Review networking foundations first, then connect secure administration, infrastructure controls, and defensive decisions through scenario-based practice.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://rare-books.library.sites.carleton.edu/ns0-004-dumps/2026-ns0-004-exam-dumps?t=1791187465965">View NS0-004 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="NS0-521" data-vendor="Security" data-category="Security" data-topics="network security administration monitoring infrastructure defense">
+                <div class="exam-meta"><span class="code-badge">NS0-521</span><span class="vendor">Security</span></div>
+                <h4>NS0-521 Network Security Administration</h4>
+                <p class="exam-description">This resource focuses on network security administration, monitoring, infrastructure protection, access controls, and practical defensive administration tasks.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Administration</span><span class="knowledge-tag">Monitoring</span><span class="knowledge-tag">Access</span><span class="knowledge-tag">Protection</span></div>
+                <p class="approach">Build network administration knowledge, then practice access control, monitoring, infrastructure protection, and troubleshooting scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906911/">View NS0-521 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CEHPC" data-vendor="Cybersecurity" data-category="Security" data-topics="ethical hacking penetration testing reconnaissance vulnerabilities exploitation">
+                <div class="exam-meta"><span class="code-badge">CEHPC</span><span class="vendor">Cybersecurity</span></div>
+                <h4>CEHPC Ethical Hacking Practitioner</h4>
+                <p class="exam-description">CEHPC preparation explores ethical hacking principles, reconnaissance, vulnerability analysis, penetration testing methods, exploitation concepts, and reporting.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Reconnaissance</span><span class="knowledge-tag">Vulnerabilities</span><span class="knowledge-tag">Testing</span><span class="knowledge-tag">Reporting</span></div>
+                <p class="approach">Learn the assessment lifecycle first, then connect reconnaissance, vulnerability analysis, testing decisions, exploitation concepts, and reporting.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/cehpc-exam-dumps-2026--actual-questions--study-resources">View CEHPC preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Artificial Intelligence">
+            <div class="category-heading">
+              <h3>Artificial Intelligence</h3>
+              <span class="category-count">3 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="AI-200" data-vendor="Microsoft" data-category="Artificial Intelligence" data-topics="AI cloud services machine learning solutions data deployment">
+                <div class="exam-meta"><span class="code-badge">AI-200</span><span class="vendor">Microsoft</span></div>
+                <h4>AI-200 Cloud AI Solutions</h4>
+                <p class="exam-description">AI-200 preparation covers cloud-based AI solution concepts, service selection, deployment considerations, machine learning workflows, and responsible implementation.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Cloud AI</span><span class="knowledge-tag">ML Workflows</span><span class="knowledge-tag">Deployment</span><span class="knowledge-tag">Services</span></div>
+                <p class="approach">Study core AI services first, then connect solution design, deployment, machine learning workflows, and service selection through scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/pass-ai-200-on-your-first-attempt-updated-2026-exam-dumps-129495.html">View AI-200 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="GASF" data-vendor="Technology" data-category="Artificial Intelligence" data-topics="AI systems generative AI foundation models applications governance">
+                <div class="exam-meta"><span class="code-badge">GASF</span><span class="vendor">Technology</span></div>
+                <h4>Generative AI Systems Foundations</h4>
+                <p class="exam-description">GASF study content introduces generative AI foundations, model concepts, applications, governance considerations, evaluation, and practical system design thinking.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Generative AI</span><span class="knowledge-tag">Models</span><span class="knowledge-tag">Evaluation</span><span class="knowledge-tag">Governance</span></div>
+                <p class="approach">Understand foundation model concepts first, then practice application design, evaluation, governance, and responsible system decisions.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-gasf-exam-dumps-with-authentic-questions-answers">View GASF preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="ACP-01101" data-vendor="AI Certification" data-category="Artificial Intelligence" data-topics="AI practitioner models applications data ethics deployment">
+                <div class="exam-meta"><span class="code-badge">ACP-01101</span><span class="vendor">AI Certification</span></div>
+                <h4>ACP-01101 AI Practitioner</h4>
+                <p class="exam-description">ACP-01101 preparation covers practical AI concepts, model use, data considerations, deployment thinking, evaluation, and responsible application of AI systems.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">AI Concepts</span><span class="knowledge-tag">Models</span><span class="knowledge-tag">Data</span><span class="knowledge-tag">Ethics</span></div>
+                <p class="approach">Build a practical AI foundation, then reinforce model selection, data handling, evaluation, deployment, and responsible use through examples.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/acp-01101-exam-dumps-pdf-2026-reliable-questions-answers-129494.html">View ACP-01101 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Business and Management">
+            <div class="category-heading">
+              <h3>Business and Management</h3>
+              <span class="category-count">13 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="CFM" data-vendor="Management" data-category="Business and Management" data-topics="financial management planning analysis budgeting decision making">
+                <div class="exam-meta"><span class="code-badge">CFM</span><span class="vendor">Management</span></div>
+                <h4>CFM Financial Management</h4>
+                <p class="exam-description">CFM preparation addresses financial management concepts, planning, analysis, budgeting, performance measures, and informed business decision making.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Finance</span><span class="knowledge-tag">Budgeting</span><span class="knowledge-tag">Analysis</span><span class="knowledge-tag">Planning</span></div>
+                <p class="approach">Review core finance principles, then practice interpreting financial information, planning budgets, comparing options, and making business decisions.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/updated-cfm-exam-questions-trusted-2026-practice-material-129498.html">View CFM preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="PfMP" data-vendor="PMI" data-category="Business and Management" data-topics="portfolio management strategy governance benefits risk investment">
+                <div class="exam-meta"><span class="code-badge">PfMP</span><span class="vendor">PMI</span></div>
+                <h4>Portfolio Management Professional</h4>
+                <p class="exam-description">PfMP study focuses on portfolio management, strategic alignment, governance, investment decisions, benefits realization, and portfolio risk considerations.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Portfolios</span><span class="knowledge-tag">Strategy</span><span class="knowledge-tag">Governance</span><span class="knowledge-tag">Benefits</span></div>
+                <p class="approach">Connect portfolio strategy with governance and benefits, then practice prioritization, investment reasoning, risk decisions, and alignment scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGre4cET5Q/">View PfMP preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="PMI-RMP" data-vendor="PMI" data-category="Business and Management" data-topics="risk management identification analysis response monitoring projects">
+                <div class="exam-meta"><span class="code-badge">PMI-RMP</span><span class="vendor">PMI</span></div>
+                <h4>PMI Risk Management Professional</h4>
+                <p class="exam-description">PMI-RMP preparation centers on project risk identification, analysis, response planning, monitoring, communication, and practical risk management decisions.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Risk</span><span class="knowledge-tag">Analysis</span><span class="knowledge-tag">Response</span><span class="knowledge-tag">Monitoring</span></div>
+                <p class="approach">Learn the risk lifecycle, then practice identifying threats and opportunities, assessing exposure, selecting responses, and monitoring changes.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://fanspo.com/nba/s/wizards/p/QNj5Cy0WrpZMJe/no-1-latest-pmi-rmp-dumps-practice-test-2026">View PMI-RMP preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CCAR-P" data-vendor="Business" data-category="Business and Management" data-topics="capital planning risk finance governance analysis">
+                <div class="exam-meta"><span class="code-badge">CCAR-P</span><span class="vendor">Business</span></div>
+                <h4>CCAR-P Capital Planning</h4>
+                <p class="exam-description">CCAR-P preparation addresses capital planning concepts, financial risk, governance, analysis, scenario thinking, and structured business decision processes.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Capital Planning</span><span class="knowledge-tag">Risk</span><span class="knowledge-tag">Finance</span><span class="knowledge-tag">Governance</span></div>
+                <p class="approach">Study capital planning fundamentals, then connect financial analysis, governance, risk considerations, and scenario-based business decisions.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGqJZSilEi/">View CCAR-P preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="MKT-101" data-vendor="Marketing" data-category="Business and Management" data-topics="marketing strategy customers segmentation positioning campaigns analytics">
+                <div class="exam-meta"><span class="code-badge">MKT-101</span><span class="vendor">Marketing</span></div>
+                <h4>MKT-101 Marketing Fundamentals</h4>
+                <p class="exam-description">MKT-101 covers marketing foundations, customer segmentation, positioning, campaign planning, market analysis, and measurement of marketing activity.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Segmentation</span><span class="knowledge-tag">Positioning</span><span class="knowledge-tag">Campaigns</span><span class="knowledge-tag">Analytics</span></div>
+                <p class="approach">Build marketing fundamentals first, then practice segmentation, positioning, campaign choices, customer analysis, and measurement concepts.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGqO2NCn6e/">View MKT-101 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="AB-730" data-vendor="Business" data-category="Business and Management" data-topics="business analysis requirements stakeholders processes solutions">
+                <div class="exam-meta"><span class="code-badge">AB-730</span><span class="vendor">Business</span></div>
+                <h4>AB-730 Business Analysis</h4>
+                <p class="exam-description">AB-730 preparation focuses on business analysis, stakeholder needs, requirements, process understanding, solution evaluation, and structured problem solving.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Requirements</span><span class="knowledge-tag">Stakeholders</span><span class="knowledge-tag">Processes</span><span class="knowledge-tag">Solutions</span></div>
+                <p class="approach">Practice identifying needs and requirements, then connect stakeholder analysis, process modeling, solution evaluation, and decision making.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://fanspo.com/nba/s/timberwolves/p/hzD6rvcVzvaLGE/no-1-updated-ab-730-dumps-practice-test-2026">View AB-730 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CBAP" data-vendor="IIBA" data-category="Business and Management" data-topics="business analysis requirements stakeholders strategy elicitation">
+                <div class="exam-meta"><span class="code-badge">CBAP</span><span class="vendor">IIBA</span></div>
+                <h4>Certified Business Analysis Professional</h4>
+                <p class="exam-description">CBAP preparation addresses business analysis practices, requirements work, stakeholder collaboration, elicitation, strategy analysis, and solution evaluation.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Elicitation</span><span class="knowledge-tag">Requirements</span><span class="knowledge-tag">Strategy</span><span class="knowledge-tag">Stakeholders</span></div>
+                <p class="approach">Study business analysis practices systematically, then reinforce elicitation, requirements, stakeholder, strategy, and solution evaluation scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256973/selene427-Real-Updated-CBAP-Dumps">View CBAP preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="C1000-147" data-vendor="Business" data-category="Business and Management" data-topics="business strategy operations planning analysis performance">
+                <div class="exam-meta"><span class="code-badge">C1000-147</span><span class="vendor">Business</span></div>
+                <h4>C1000-147 Business Strategy</h4>
+                <p class="exam-description">C1000-147 study content focuses on business strategy, operational planning, performance analysis, decision making, and organizational priorities.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Strategy</span><span class="knowledge-tag">Operations</span><span class="knowledge-tag">Planning</span><span class="knowledge-tag">Performance</span></div>
+                <p class="approach">Review strategy fundamentals, then practice analyzing business situations, operational choices, performance measures, and competing priorities.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/c1000-147-exam-dumps-2026--practice-test--exam-preparation">View C1000-147 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CPC" data-vendor="Business" data-category="Business and Management" data-topics="professional communication planning operations management decisions">
+                <div class="exam-meta"><span class="code-badge">CPC</span><span class="vendor">Business</span></div>
+                <h4>CPC Professional Practice</h4>
+                <p class="exam-description">CPC preparation emphasizes professional practice, planning, communication, operational judgment, workplace processes, and structured decision making.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Communication</span><span class="knowledge-tag">Planning</span><span class="knowledge-tag">Operations</span><span class="knowledge-tag">Judgment</span></div>
+                <p class="approach">Review professional principles first, then practice communication, planning, operational choices, and workplace decision scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256972/selene427-Real-Updated-CPC-Dumps">View CPC preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="EAEP2201" data-vendor="Business" data-category="Business and Management" data-topics="business operations planning performance processes management">
+                <div class="exam-meta"><span class="code-badge">EAEP2201</span><span class="vendor">Business</span></div>
+                <h4>EAEP2201 Business Operations</h4>
+                <p class="exam-description">EAEP2201 preparation covers business operations, planning, process improvement, performance management, coordination, and practical organizational decision making.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Operations</span><span class="knowledge-tag">Planning</span><span class="knowledge-tag">Processes</span><span class="knowledge-tag">Performance</span></div>
+                <p class="approach">Understand operational foundations, then connect planning, process improvement, performance measures, and coordination through practical cases.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256976/selene427-Real-Updated-EAEP2201-Dumps">View EAEP2201 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="NPPE" data-vendor="Professional Practice" data-category="Business and Management" data-topics="professional practice ethics engineering responsibility law public safety">
+                <div class="exam-meta"><span class="code-badge">NPPE</span><span class="vendor">Professional Practice</span></div>
+                <h4>NPPE Professional Practice</h4>
+                <p class="exam-description">NPPE study content focuses on professional practice, ethics, responsibility, legal principles, public safety, and sound professional judgment.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Ethics</span><span class="knowledge-tag">Law</span><span class="knowledge-tag">Safety</span><span class="knowledge-tag">Judgment</span></div>
+                <p class="approach">Study professional duties and ethical principles, then practice applying legal, safety, responsibility, and judgment concepts to scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256965/selene427-NO-1-NPPE-Official-Dumps-2026">View NPPE preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Salesforce and Business Applications">
+            <div class="category-heading">
+              <h3>Salesforce and Business Applications</h3>
+              <span class="category-count">4 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="Salesforce-Hyperautomation-Specialist" data-vendor="Salesforce" data-category="Salesforce and Business Applications" data-topics="Salesforce automation workflows integration business processes low code">
+                <div class="exam-meta"><span class="code-badge">Salesforce-Hyperautomation-Specialist</span><span class="vendor">Salesforce</span></div>
+                <h4>Salesforce Hyperautomation Specialist</h4>
+                <p class="exam-description">This resource explores Salesforce hyperautomation, workflow automation, process improvement, integration concepts, and practical business automation design.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Automation</span><span class="knowledge-tag">Workflows</span><span class="knowledge-tag">Integration</span><span class="knowledge-tag">Processes</span></div>
+                <p class="approach">Understand automation patterns first, then connect workflows, integrations, process design, and business outcomes through practical scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/verified-salesforce-hyperautomation-specialist-exam-dumps-2026-129497.html">View Salesforce Hyperautomation preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="Salesforce-MuleSoft-Developer-II" data-vendor="Salesforce" data-category="Salesforce and Business Applications" data-topics="MuleSoft APIs integration application networks connectors data transformation">
+                <div class="exam-meta"><span class="code-badge">Salesforce-MuleSoft-Developer-II</span><span class="vendor">Salesforce</span></div>
+                <h4>Salesforce MuleSoft Developer II</h4>
+                <p class="exam-description">MuleSoft Developer II preparation covers API development, integrations, data transformation, connectors, application networks, and reusable integration design.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">APIs</span><span class="knowledge-tag">Integration</span><span class="knowledge-tag">Data Transformation</span><span class="knowledge-tag">Connectors</span></div>
+                <p class="approach">Strengthen API and integration fundamentals, then practice transformation, connectors, application networks, and reusable integration patterns.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/prepare-for-salesforce-mulesoft-developer-ii-exam-with-updated-dumps-2026">View MuleSoft Developer II preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="Apigee-API-Engineer" data-vendor="Google Cloud" data-category="Salesforce and Business Applications" data-topics="Apigee APIs API management policies proxies security analytics">
+                <div class="exam-meta"><span class="code-badge">Apigee-API-Engineer</span><span class="vendor">Google Cloud</span></div>
+                <h4>Apigee API Engineer</h4>
+                <p class="exam-description">Apigee API Engineer preparation focuses on API design, proxies, policies, security, lifecycle management, analytics, and reliable API operations.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">API Design</span><span class="knowledge-tag">Policies</span><span class="knowledge-tag">Security</span><span class="knowledge-tag">Analytics</span></div>
+                <p class="approach">Review API management concepts, then connect proxies, policies, security, analytics, and lifecycle decisions through implementation scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256971/selene427-Real-Updated-Apigee-API-Engineer-Dumps">View Apigee API Engineer preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="Workday-Pro-Talent-and-Performance" data-vendor="Workday" data-category="Salesforce and Business Applications" data-topics="Workday talent performance employee development goals reviews">
+                <div class="exam-meta"><span class="code-badge">Workday-Pro-Talent-and-Performance</span><span class="vendor">Workday</span></div>
+                <h4>Workday Pro Talent and Performance</h4>
+                <p class="exam-description">This Workday resource covers talent and performance concepts, employee development, goals, reviews, performance processes, and workforce management practices.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Talent</span><span class="knowledge-tag">Performance</span><span class="knowledge-tag">Goals</span><span class="knowledge-tag">Development</span></div>
+                <p class="approach">Study talent processes first, then connect goals, reviews, development planning, performance workflows, and employee management scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/workday-pro-talent-and-performance-exam-dumps-2026">View Workday Pro preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Programming and Development">
+            <div class="category-heading">
+              <h3>Programming and Development</h3>
+              <span class="category-count">8 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="EX432" data-vendor="Red Hat" data-category="Programming and Development" data-topics="Red Hat development automation application development programming">
+                <div class="exam-meta"><span class="code-badge">EX432</span><span class="vendor">Red Hat</span></div>
+                <h4>Red Hat EX432</h4>
+                <p class="exam-description">EX432 preparation explores Red Hat development concepts, automation, application workflows, platform practices, and practical administration for development environments.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Development</span><span class="knowledge-tag">Automation</span><span class="knowledge-tag">Applications</span><span class="knowledge-tag">Platforms</span></div>
+                <p class="approach">Review platform fundamentals, then practice development workflows, automation concepts, application tasks, and environment-focused troubleshooting.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/2026-redhat-ex432-exam-dumps-real-questions-with-detailed-explanations-129500.html">View EX432 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="AD0-E708" data-vendor="Adobe" data-category="Programming and Development" data-topics="Adobe digital experience development implementation configuration content">
+                <div class="exam-meta"><span class="code-badge">AD0-E708</span><span class="vendor">Adobe</span></div>
+                <h4>Adobe AD0-E708</h4>
+                <p class="exam-description">AD0-E708 preparation covers Adobe platform implementation, configuration, digital experience concepts, content workflows, and practical solution development.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Implementation</span><span class="knowledge-tag">Configuration</span><span class="knowledge-tag">Content</span><span class="knowledge-tag">Development</span></div>
+                <p class="approach">Learn the platform concepts first, then practice configuration, implementation workflows, content handling, and solution-oriented development scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-adobe-ad0-e708-exam-dumps-with-authentic-questions-answers">View AD0-E708 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="Sitecore-Experience-Solution-9-Developer" data-vendor="Sitecore" data-category="Programming and Development" data-topics="Sitecore development experience content applications configuration">
+                <div class="exam-meta"><span class="code-badge">Sitecore-Experience-Solution-9-Developer</span><span class="vendor">Sitecore</span></div>
+                <h4>Sitecore Experience Solution 9 Developer</h4>
+                <p class="exam-description">This Sitecore resource covers application development, experience management, content solutions, configuration, implementation patterns, and developer workflows.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Development</span><span class="knowledge-tag">Experience</span><span class="knowledge-tag">Content</span><span class="knowledge-tag">Configuration</span></div>
+                <p class="approach">Review Sitecore architecture concepts, then practice development workflows, content handling, configuration, and solution implementation scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-sitecore-experience-solution-9-developer-exam-dumps-with-authentic-questions-answers">View Sitecore Developer preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="1V0-41.20" data-vendor="VMware" data-category="Programming and Development" data-topics="VMware development virtualization applications infrastructure configuration">
+                <div class="exam-meta"><span class="code-badge">1V0-41.20</span><span class="vendor">VMware</span></div>
+                <h4>VMware 1V0-41.20</h4>
+                <p class="exam-description">This resource covers VMware development and platform concepts, virtualization foundations, configuration, infrastructure relationships, and application-oriented workflows.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Virtualization</span><span class="knowledge-tag">Configuration</span><span class="knowledge-tag">Infrastructure</span><span class="knowledge-tag">Applications</span></div>
+                <p class="approach">Build virtualization fundamentals first, then connect configuration, infrastructure components, application workflows, and practical platform scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGq1eZCkoH/">View 1V0-41.20 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="300-815" data-vendor="Cisco" data-category="Programming and Development" data-topics="Cisco automation APIs development networking programmability">
+                <div class="exam-meta"><span class="code-badge">300-815</span><span class="vendor">Cisco</span></div>
+                <h4>Cisco 300-815 Programmability</h4>
+                <p class="exam-description">Cisco 300-815 preparation focuses on network programmability, APIs, automation concepts, software development practices, and programmable infrastructure.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">APIs</span><span class="knowledge-tag">Automation</span><span class="knowledge-tag">Programmability</span><span class="knowledge-tag">Networking</span></div>
+                <p class="approach">Review programmable networking foundations, then practice APIs, automation workflows, development concepts, and infrastructure integration scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906870/">View 300-815 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="JN0-281" data-vendor="Juniper" data-category="Programming and Development" data-topics="Juniper automation networking configuration APIs scripting">
+                <div class="exam-meta"><span class="code-badge">JN0-281</span><span class="vendor">Juniper</span></div>
+                <h4>Juniper JN0-281</h4>
+                <p class="exam-description">JN0-281 preparation explores Juniper networking concepts, configuration, automation, scripting, APIs, and practical infrastructure management workflows.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Networking</span><span class="knowledge-tag">Automation</span><span class="knowledge-tag">Scripting</span><span class="knowledge-tag">APIs</span></div>
+                <p class="approach">Strengthen networking basics first, then connect configuration, scripting, APIs, and automation through infrastructure-focused scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/juniper-jn0-281-pdf-dumps-2026--updated-questions--exam-guide">View JN0-281 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="JN0-364" data-vendor="Juniper" data-category="Programming and Development" data-topics="Juniper networking switching routing configuration operations">
+                <div class="exam-meta"><span class="code-badge">JN0-364</span><span class="vendor">Juniper</span></div>
+                <h4>Juniper JN0-364</h4>
+                <p class="exam-description">JN0-364 study material covers Juniper networking, configuration, routing, switching, operational concepts, and structured network troubleshooting.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Routing</span><span class="knowledge-tag">Switching</span><span class="knowledge-tag">Configuration</span><span class="knowledge-tag">Troubleshooting</span></div>
+                <p class="approach">Review network fundamentals, then practice routing, switching, configuration tasks, operational checks, and troubleshooting scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-juniper-jn0-364-exam-dumps-with-authentic-questions-answers">View JN0-364 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="HPE7-A06" data-vendor="HPE" data-category="Programming and Development" data-topics="HPE servers infrastructure administration configuration hardware">
+                <div class="exam-meta"><span class="code-badge">HPE7-A06</span><span class="vendor">HPE</span></div>
+                <h4>HPE7-A06 Infrastructure</h4>
+                <p class="exam-description">HPE7-A06 preparation addresses HPE infrastructure, server technologies, configuration, administration, hardware relationships, and operational maintenance concepts.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Servers</span><span class="knowledge-tag">Infrastructure</span><span class="knowledge-tag">Hardware</span><span class="knowledge-tag">Administration</span></div>
+                <p class="approach">Study server and infrastructure fundamentals, then reinforce configuration, hardware relationships, administration, and maintenance scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906904/">View HPE7-A06 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Oracle and Database">
+            <div class="category-heading">
+              <h3>Oracle and Database</h3>
+              <span class="category-count">8 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="1Z0-821" data-vendor="Oracle" data-category="Oracle and Database" data-topics="Oracle database administration SQL security performance configuration">
+                <div class="exam-meta"><span class="code-badge">1Z0-821</span><span class="vendor">Oracle</span></div>
+                <h4>Oracle 1Z0-821</h4>
+                <p class="exam-description">Oracle 1Z0-821 preparation covers database administration concepts, SQL, configuration, security, performance considerations, and operational database tasks.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">SQL</span><span class="knowledge-tag">Administration</span><span class="knowledge-tag">Security</span><span class="knowledge-tag">Performance</span></div>
+                <p class="approach">Build database fundamentals first, then practice administration, SQL, security, configuration, and performance-oriented scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/oracle-1z0-821-updated-dumps-2026-complete-question-bank-129501.html">View 1Z0-821 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="1Z0-1114-25" data-vendor="Oracle" data-category="Oracle and Database" data-topics="Oracle cloud database services architecture security administration">
+                <div class="exam-meta"><span class="code-badge">1Z0-1114-25</span><span class="vendor">Oracle</span></div>
+                <h4>Oracle 1Z0-1114-25</h4>
+                <p class="exam-description">This Oracle resource focuses on cloud database concepts, architecture, administration, security, service selection, and practical cloud database operations.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Cloud Databases</span><span class="knowledge-tag">Architecture</span><span class="knowledge-tag">Security</span><span class="knowledge-tag">Administration</span></div>
+                <p class="approach">Review cloud database foundations, then connect architecture, service choices, security, administration, and operational scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGraPDkaZA/">View 1Z0-1114-25 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="1Z0-915-1" data-vendor="Oracle" data-category="Oracle and Database" data-topics="Oracle Java development application programming APIs services">
+                <div class="exam-meta"><span class="code-badge">1Z0-915-1</span><span class="vendor">Oracle</span></div>
+                <h4>Oracle 1Z0-915-1</h4>
+                <p class="exam-description">Oracle 1Z0-915-1 preparation explores Java development concepts, application programming, APIs, services, and structured software development practices.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Java</span><span class="knowledge-tag">APIs</span><span class="knowledge-tag">Applications</span><span class="knowledge-tag">Development</span></div>
+                <p class="approach">Review Java fundamentals, then practice application design, APIs, service integration, and development decisions through coding-oriented scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://fanspo.com/nba/s/wizards/p/K5qTU3BHVRN1fn/no-1-new-1z0-915-1-dumps-practice-test-2026">View 1Z0-915-1 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="1Z0-819" data-vendor="Oracle" data-category="Oracle and Database" data-topics="Java programming object oriented APIs exceptions collections">
+                <div class="exam-meta"><span class="code-badge">1Z0-819</span><span class="vendor">Oracle</span></div>
+                <h4>Oracle Java 1Z0-819</h4>
+                <p class="exam-description">Java 1Z0-819 preparation covers object-oriented programming, language features, APIs, exceptions, collections, and practical Java development concepts.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Java</span><span class="knowledge-tag">OOP</span><span class="knowledge-tag">APIs</span><span class="knowledge-tag">Collections</span></div>
+                <p class="approach">Strengthen Java language fundamentals, then practice object-oriented design, APIs, exceptions, collections, and code behavior questions.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-oracle-1z0-819-exam-dumps-with-authentic-questions-answers">View 1Z0-819 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="1Z0-082" data-vendor="Oracle" data-category="Oracle and Database" data-topics="Oracle SQL database administration queries transactions tables">
+                <div class="exam-meta"><span class="code-badge">1Z0-082</span><span class="vendor">Oracle</span></div>
+                <h4>Oracle Database SQL 1Z0-082</h4>
+                <p class="exam-description">Oracle 1Z0-082 preparation focuses on SQL fundamentals, database structures, queries, transactions, data manipulation, and relational database concepts.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">SQL</span><span class="knowledge-tag">Queries</span><span class="knowledge-tag">Transactions</span><span class="knowledge-tag">Tables</span></div>
+                <p class="approach">Practice SQL syntax and relational concepts first, then reinforce queries, transactions, data manipulation, and database behavior.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-oracle-1z0-082-exam-dumps-with-authentic-questions-answers">View 1Z0-082 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="1z0-1073-25" data-vendor="Oracle" data-category="Oracle and Database" data-topics="Oracle cloud infrastructure architecture networking security services">
+                <div class="exam-meta"><span class="code-badge">1z0-1073-25</span><span class="vendor">Oracle</span></div>
+                <h4>Oracle 1Z0-1073-25 Cloud Infrastructure</h4>
+                <p class="exam-description">This Oracle cloud resource covers infrastructure architecture, networking, security, cloud services, deployment considerations, and operational cloud concepts.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Cloud</span><span class="knowledge-tag">Networking</span><span class="knowledge-tag">Security</span><span class="knowledge-tag">Architecture</span></div>
+                <p class="approach">Build cloud infrastructure fundamentals, then practice architecture, networking, security, service selection, and deployment scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906881/">View 1Z0-1073-25 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="PostgreSQL-Essentials" data-vendor="PostgreSQL" data-category="Oracle and Database" data-topics="PostgreSQL SQL tables queries administration indexes data types">
+                <div class="exam-meta"><span class="code-badge">PostgreSQL-Essentials</span><span class="vendor">PostgreSQL</span></div>
+                <h4>PostgreSQL Essentials</h4>
+                <p class="exam-description">PostgreSQL Essentials preparation introduces relational database concepts, SQL queries, data types, tables, indexes, administration, and practical database usage.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">PostgreSQL</span><span class="knowledge-tag">SQL</span><span class="knowledge-tag">Indexes</span><span class="knowledge-tag">Administration</span></div>
+                <p class="approach">Learn relational database fundamentals, then practice PostgreSQL queries, data structures, indexing, administration, and everyday database tasks.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/updated-postgresql-essentials-exam-dumps--practice-test-2026">View PostgreSQL Essentials preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="ACD101" data-vendor="Database" data-category="Oracle and Database" data-topics="database administration SQL architecture performance security">
+                <div class="exam-meta"><span class="code-badge">ACD101</span><span class="vendor">Database</span></div>
+                <h4>ACD101 Database Administration</h4>
+                <p class="exam-description">ACD101 study material covers database administration, SQL, architecture, security, performance management, backup concepts, and operational database tasks.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Administration</span><span class="knowledge-tag">SQL</span><span class="knowledge-tag">Security</span><span class="knowledge-tag">Backup</span></div>
+                <p class="approach">Study administration foundations first, then practice SQL, security, backup concepts, architecture, and performance troubleshooting scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906878/">View ACD101 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Networking and Infrastructure">
+            <div class="category-heading">
+              <h3>Networking and Infrastructure</h3>
+              <span class="category-count">10 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="156-836" data-vendor="Check Point" data-category="Networking and Infrastructure" data-topics="network security firewall VPN policy threat prevention">
+                <div class="exam-meta"><span class="code-badge">156-836</span><span class="vendor">Check Point</span></div>
+                <h4>Check Point 156-836</h4>
+                <p class="exam-description">Check Point 156-836 preparation covers network security, firewall administration, policy management, VPN concepts, threat prevention, and secure connectivity.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Firewalls</span><span class="knowledge-tag">VPN</span><span class="knowledge-tag">Policies</span><span class="knowledge-tag">Threat Prevention</span></div>
+                <p class="approach">Review firewall and network security fundamentals, then practice policy decisions, VPN concepts, threat controls, and connectivity scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGrpZCkTRX/">View 156-836 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="156-536" data-vendor="Check Point" data-category="Networking and Infrastructure" data-topics="Check Point security firewall management VPN network protection">
+                <div class="exam-meta"><span class="code-badge">156-536</span><span class="vendor">Check Point</span></div>
+                <h4>Check Point 156-536</h4>
+                <p class="exam-description">This Check Point resource addresses firewall concepts, network protection, security management, VPN fundamentals, and operational security controls.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Firewall</span><span class="knowledge-tag">Security</span><span class="knowledge-tag">VPN</span><span class="knowledge-tag">Management</span></div>
+                <p class="approach">Study network security foundations, then reinforce firewall management, VPN concepts, protection controls, and operational troubleshooting.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://help.fumotousa.com/en-US/Community/Post/48939">View 156-536 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="3V0-25.25" data-vendor="VMware" data-category="Networking and Infrastructure" data-topics="VMware virtualization networking cloud infrastructure administration">
+                <div class="exam-meta"><span class="code-badge">3V0-25.25</span><span class="vendor">VMware</span></div>
+                <h4>VMware 3V0-25.25</h4>
+                <p class="exam-description">VMware 3V0-25.25 preparation focuses on virtualization, networking, infrastructure management, cloud concepts, configuration, and operational administration.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Virtualization</span><span class="knowledge-tag">Networking</span><span class="knowledge-tag">Cloud</span><span class="knowledge-tag">Administration</span></div>
+                <p class="approach">Review virtualization architecture first, then practice networking, configuration, cloud relationships, and infrastructure administration scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906868/">View 3V0-25.25 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="6V0-21.25" data-vendor="VMware" data-category="Networking and Infrastructure" data-topics="VMware virtualization networking storage compute management">
+                <div class="exam-meta"><span class="code-badge">6V0-21.25</span><span class="vendor">VMware</span></div>
+                <h4>VMware 6V0-21.25</h4>
+                <p class="exam-description">This VMware resource covers virtualization architecture, compute, storage, networking, platform management, and practical virtual infrastructure concepts.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Compute</span><span class="knowledge-tag">Storage</span><span class="knowledge-tag">Networking</span><span class="knowledge-tag">Virtualization</span></div>
+                <p class="approach">Build virtualization foundations, then connect compute, storage, networking, management, and infrastructure troubleshooting through scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-vmware-6v0-21-25-exam-dumps-with-authentic-questions-answers">View 6V0-21.25 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="5V0-93.22" data-vendor="VMware" data-category="Networking and Infrastructure" data-topics="VMware cloud management networking virtualization infrastructure operations">
+                <div class="exam-meta"><span class="code-badge">5V0-93.22</span><span class="vendor">VMware</span></div>
+                <h4>VMware 5V0-93.22</h4>
+                <p class="exam-description">VMware 5V0-93.22 preparation addresses virtual infrastructure, cloud management, networking, operations, resource management, and platform administration.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Cloud Management</span><span class="knowledge-tag">Networking</span><span class="knowledge-tag">Resources</span><span class="knowledge-tag">Operations</span></div>
+                <p class="approach">Study infrastructure management concepts, then practice networking, resource decisions, cloud operations, and administration scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://app.talkshoe.com/show/no-1-verified-vmware-5v0-93-22-exam-dumps-with-authentic-questions-answers">View 5V0-93.22 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="300-615" data-vendor="Cisco" data-category="Networking and Infrastructure" data-topics="Cisco networking infrastructure routing switching security troubleshooting">
+                <div class="exam-meta"><span class="code-badge">300-615</span><span class="vendor">Cisco</span></div>
+                <h4>Cisco 300-615 Networking</h4>
+                <p class="exam-description">Cisco 300-615 preparation covers networking infrastructure, routing, switching, security, configuration, troubleshooting, and operational network management.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Routing</span><span class="knowledge-tag">Switching</span><span class="knowledge-tag">Security</span><span class="knowledge-tag">Troubleshooting</span></div>
+                <p class="approach">Strengthen networking fundamentals first, then practice routing, switching, security, configuration, and troubleshooting scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://help.fumotousa.com/en-US/Community/Post/48940">View 300-615 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="NCP-BC" data-vendor="Networking" data-category="Networking and Infrastructure" data-topics="network configuration routing switching infrastructure troubleshooting">
+                <div class="exam-meta"><span class="code-badge">NCP-BC</span><span class="vendor">Networking</span></div>
+                <h4>NCP-BC Network Infrastructure</h4>
+                <p class="exam-description">NCP-BC preparation focuses on network infrastructure, configuration, routing, switching, connectivity, troubleshooting, and operational network practices.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Infrastructure</span><span class="knowledge-tag">Routing</span><span class="knowledge-tag">Switching</span><span class="knowledge-tag">Connectivity</span></div>
+                <p class="approach">Review network architecture first, then reinforce configuration, routing, switching, connectivity checks, and troubleshooting workflows.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906940/">View NCP-BC preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="GH-300" data-vendor="Networking" data-category="Networking and Infrastructure" data-topics="network administration infrastructure services security monitoring">
+                <div class="exam-meta"><span class="code-badge">GH-300</span><span class="vendor">Networking</span></div>
+                <h4>GH-300 Network Administration</h4>
+                <p class="exam-description">GH-300 study content covers network administration, infrastructure services, monitoring, security considerations, configuration, and operational troubleshooting.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Administration</span><span class="knowledge-tag">Services</span><span class="knowledge-tag">Monitoring</span><span class="knowledge-tag">Security</span></div>
+                <p class="approach">Build administration fundamentals, then practice service configuration, monitoring, security checks, and network troubleshooting scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://help.fumotousa.com/en-US/Community/Post/48934">View GH-300 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="H13-711" data-vendor="Infrastructure" data-category="Networking and Infrastructure" data-topics="infrastructure systems administration networking services operations">
+                <div class="exam-meta"><span class="code-badge">H13-711</span><span class="vendor">Infrastructure</span></div>
+                <h4>H13-711 Infrastructure Operations</h4>
+                <p class="exam-description">H13-711 preparation addresses infrastructure systems, administration, networking, service operations, monitoring, and practical technology management tasks.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Systems</span><span class="knowledge-tag">Networking</span><span class="knowledge-tag">Operations</span><span class="knowledge-tag">Monitoring</span></div>
+                <p class="approach">Review infrastructure fundamentals, then connect systems administration, networking, monitoring, and service operations through scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906864/">View H13-711 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CTL-001" data-vendor="Technology" data-category="Networking and Infrastructure" data-topics="technology infrastructure cloud systems architecture operations">
+                <div class="exam-meta"><span class="code-badge">CTL-001</span><span class="vendor">Technology</span></div>
+                <h4>CTL-001 Technology Infrastructure</h4>
+                <p class="exam-description">CTL-001 preparation covers technology infrastructure, systems architecture, cloud concepts, operational management, connectivity, and platform fundamentals.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Infrastructure</span><span class="knowledge-tag">Architecture</span><span class="knowledge-tag">Cloud</span><span class="knowledge-tag">Operations</span></div>
+                <p class="approach">Start with infrastructure architecture, then reinforce cloud concepts, connectivity, platform operations, and technology management decisions.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://fanspo.com/nba/s/wizards/p/KGqVc0t9Y2LQ-9/no-1-expert-ctl-001-dumps-practice-test-2026">View CTL-001 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="IT Service Management">
+            <div class="category-heading">
+              <h3>IT Service Management</h3>
+              <span class="category-count">5 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="ITIL-4-Specialist-Create-Deliver-and-Support" data-vendor="PeopleCert" data-category="IT Service Management" data-topics="ITIL service management service value incident change delivery support">
+                <div class="exam-meta"><span class="code-badge">ITIL-4-Specialist-Create-Deliver-and-Support</span><span class="vendor">PeopleCert</span></div>
+                <h4>ITIL 4 Specialist Create Deliver and Support</h4>
+                <p class="exam-description">This ITIL resource focuses on service management practices, service value, delivery, support, workflows, collaboration, and continual improvement thinking.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Service Value</span><span class="knowledge-tag">Delivery</span><span class="knowledge-tag">Support</span><span class="knowledge-tag">Improvement</span></div>
+                <p class="approach">Understand service management concepts first, then practice delivery, support, collaboration, workflow decisions, and continual improvement scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://help.fumotousa.com/en-US/Community/Post/48937">View ITIL Create Deliver and Support resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="NS0-194" data-vendor="Service Management" data-category="IT Service Management" data-topics="service management operations support processes incidents changes">
+                <div class="exam-meta"><span class="code-badge">NS0-194</span><span class="vendor">Service Management</span></div>
+                <h4>NS0-194 Service Operations</h4>
+                <p class="exam-description">NS0-194 preparation covers service operations, support processes, incident handling, change concepts, operational coordination, and service continuity.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Operations</span><span class="knowledge-tag">Incidents</span><span class="knowledge-tag">Changes</span><span class="knowledge-tag">Support</span></div>
+                <p class="approach">Review service operations foundations, then connect incident handling, change practices, support workflows, and continuity through scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGq6fIkfg9/">View NS0-194 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="BL0-100" data-vendor="IT Service Management" data-category="IT Service Management" data-topics="service management processes operations support governance">
+                <div class="exam-meta"><span class="code-badge">BL0-100</span><span class="vendor">IT Service Management</span></div>
+                <h4>BL0-100 Service Management</h4>
+                <p class="exam-description">BL0-100 preparation introduces service management principles, operational processes, support practices, governance, service quality, and organizational coordination.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Processes</span><span class="knowledge-tag">Operations</span><span class="knowledge-tag">Support</span><span class="knowledge-tag">Governance</span></div>
+                <p class="approach">Learn service management foundations, then practice process decisions, support workflows, governance considerations, and service quality scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256968/selene427-Real-BL0-100-Dumps">View BL0-100 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="EMEA-Advanced-Support" data-vendor="Support Operations" data-category="IT Service Management" data-topics="technical support service delivery troubleshooting escalation customer operations">
+                <div class="exam-meta"><span class="code-badge">EMEA-Advanced-Support</span><span class="vendor">Support Operations</span></div>
+                <h4>EMEA Advanced Support</h4>
+                <p class="exam-description">This resource focuses on advanced support operations, troubleshooting, service delivery, escalation management, customer communication, and technical issue resolution.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Troubleshooting</span><span class="knowledge-tag">Escalation</span><span class="knowledge-tag">Support</span><span class="knowledge-tag">Service Delivery</span></div>
+                <p class="approach">Review support workflows first, then practice troubleshooting, escalation decisions, communication, and service delivery through realistic cases.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256970/selene427-Real-Updated-EMEA-Advanced-Support-Dumps">View EMEA Advanced Support resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="303" data-vendor="IT Service Management" data-category="IT Service Management" data-topics="service operations support incident management processes">
+                <div class="exam-meta"><span class="code-badge">303</span><span class="vendor">IT Service Management</span></div>
+                <h4>303 Service Operations</h4>
+                <p class="exam-description">303 preparation covers service operations, incident handling, support processes, service workflows, operational communication, and practical issue resolution.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Incidents</span><span class="knowledge-tag">Operations</span><span class="knowledge-tag">Support</span><span class="knowledge-tag">Workflows</span></div>
+                <p class="approach">Learn operational processes first, then practice incident handling, support decisions, communication, and workflow coordination through scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://help.fumotousa.com/en-US/Community/Post/48936">View 303 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Data and Analytics">
+            <div class="category-heading">
+              <h3>Data and Analytics</h3>
+              <span class="category-count">5 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="QSA_New_V4" data-vendor="Analytics" data-category="Data and Analytics" data-topics="quality systems analytics data measurement process improvement">
+                <div class="exam-meta"><span class="code-badge">QSA_New_V4</span><span class="vendor">Analytics</span></div>
+                <h4>QSA New V4</h4>
+                <p class="exam-description">QSA New V4 preparation focuses on quality systems, measurement, analytical thinking, process improvement, data interpretation, and structured quality decisions.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Quality Systems</span><span class="knowledge-tag">Analytics</span><span class="knowledge-tag">Measurement</span><span class="knowledge-tag">Improvement</span></div>
+                <p class="approach">Review quality principles, then connect measurement, analytics, process improvement, and data interpretation through practical quality scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://vseosvita.ua/blogs/qsanewv4-practice-questions-2026-129496.html">View QSA New V4 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="GED-Reading" data-vendor="GED" data-category="Data and Analytics" data-topics="reading comprehension analysis evidence vocabulary inference">
+                <div class="exam-meta"><span class="code-badge">GED-Reading</span><span class="vendor">GED</span></div>
+                <h4>GED Reading</h4>
+                <p class="exam-description">GED Reading preparation develops comprehension, evidence analysis, inference, vocabulary, argument interpretation, and careful reading of informational passages.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Comprehension</span><span class="knowledge-tag">Inference</span><span class="knowledge-tag">Evidence</span><span class="knowledge-tag">Vocabulary</span></div>
+                <p class="approach">Practice reading for main ideas first, then strengthen evidence use, inference, vocabulary, argument analysis, and timed passage work.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://fanspo.com/nba/s/wizards/p/UylZIgub5FNAfI/no-1-current-ged-reading-dumps-practice-test-2026">View GED Reading preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="IBQH001" data-vendor="Quality" data-category="Data and Analytics" data-topics="quality management inspection measurement process compliance">
+                <div class="exam-meta"><span class="code-badge">IBQH001</span><span class="vendor">Quality</span></div>
+                <h4>IBQH001 Quality Management</h4>
+                <p class="exam-description">IBQH001 preparation covers quality management principles, inspection, measurement, process controls, compliance, improvement, and evidence-based quality decisions.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Quality</span><span class="knowledge-tag">Inspection</span><span class="knowledge-tag">Measurement</span><span class="knowledge-tag">Compliance</span></div>
+                <p class="approach">Learn quality fundamentals first, then practice measurement, inspection, process controls, compliance decisions, and improvement scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://fanspo.com/nba/s/wizards/p/vHnN7StsDe4fYk/no-1-quality-ibqh001-dumps-practice-test-2026">View IBQH001 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CDCS-001" data-vendor="Data Center" data-category="Data and Analytics" data-topics="data center infrastructure storage networking facilities availability">
+                <div class="exam-meta"><span class="code-badge">CDCS-001</span><span class="vendor">Data Center</span></div>
+                <h4>CDCS-001 Data Center Infrastructure</h4>
+                <p class="exam-description">CDCS-001 preparation addresses data center infrastructure, facilities, networking, storage, availability, environmental considerations, and operational resilience.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Infrastructure</span><span class="knowledge-tag">Facilities</span><span class="knowledge-tag">Storage</span><span class="knowledge-tag">Availability</span></div>
+                <p class="approach">Study data center fundamentals, then connect facilities, storage, networking, availability, and resilience concepts through operational scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://rare-books.library.sites.carleton.edu/cdcs-001-dumps/2026-cdcs-001-exam-dumps?t=1791187539175">View CDCS-001 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="GCX-GCD" data-vendor="Data" data-category="Data and Analytics" data-topics="data governance data quality analytics cloud information management">
+                <div class="exam-meta"><span class="code-badge">GCX-GCD</span><span class="vendor">Data</span></div>
+                <h4>GCX-GCD Data and Governance</h4>
+                <p class="exam-description">GCX-GCD preparation focuses on data governance, data quality, analytics, information management, controls, and responsible organizational use of data.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Data Governance</span><span class="knowledge-tag">Data Quality</span><span class="knowledge-tag">Analytics</span><span class="knowledge-tag">Controls</span></div>
+                <p class="approach">Understand governance principles first, then practice data quality, controls, analytics, information management, and organizational data decisions.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/gcx-gcd-dumps-2026--updated-exam-questions--practice-test">View GCX-GCD preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Enterprise and Architecture">
+            <div class="category-heading">
+              <h3>Enterprise and Architecture</h3>
+              <span class="category-count">7 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="OGA-031" data-vendor="Architecture" data-category="Enterprise and Architecture" data-topics="enterprise architecture governance strategy capabilities systems">
+                <div class="exam-meta"><span class="code-badge">OGA-031</span><span class="vendor">Architecture</span></div>
+                <h4>OGA-031 Enterprise Architecture</h4>
+                <p class="exam-description">OGA-031 preparation addresses enterprise architecture, strategic alignment, governance, capabilities, systems thinking, and structured architecture decision making.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Architecture</span><span class="knowledge-tag">Governance</span><span class="knowledge-tag">Strategy</span><span class="knowledge-tag">Capabilities</span></div>
+                <p class="approach">Learn architecture principles first, then connect strategy, governance, capabilities, systems, and architecture decisions through business scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/get-ready-for-the-oga-031-exam-with-updated-dumps-2026">View OGA-031 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="AB-900" data-vendor="Architecture" data-category="Enterprise and Architecture" data-topics="architecture business systems cloud technology strategy">
+                <div class="exam-meta"><span class="code-badge">AB-900</span><span class="vendor">Architecture</span></div>
+                <h4>AB-900 Business Architecture</h4>
+                <p class="exam-description">AB-900 preparation focuses on business architecture, technology alignment, systems thinking, cloud considerations, capabilities, and strategic planning.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Business Architecture</span><span class="knowledge-tag">Strategy</span><span class="knowledge-tag">Systems</span><span class="knowledge-tag">Cloud</span></div>
+                <p class="approach">Study business architecture foundations, then practice connecting capabilities, systems, technology choices, cloud considerations, and strategy.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://fanspo.com/nba/s/wizards/p/FHievIzDF44WRB/no-1-premium-ab-900-dumps-practice-test-2026">View AB-900 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="ACD101" data-vendor="Architecture" data-category="Enterprise and Architecture" data-topics="architecture systems design integration technology planning">
+                <div class="exam-meta"><span class="code-badge">ACD101</span><span class="vendor">Architecture</span></div>
+                <h4>ACD101 Systems Architecture</h4>
+                <p class="exam-description">ACD101 architecture preparation covers system design, technology planning, integration concepts, architecture decisions, and structured technical solution thinking.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">System Design</span><span class="knowledge-tag">Integration</span><span class="knowledge-tag">Planning</span><span class="knowledge-tag">Architecture</span></div>
+                <p class="approach">Review architecture principles, then practice system design, integration choices, technology planning, and tradeoff analysis through scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906878/">View ACD101 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="A00-215" data-vendor="Architecture" data-category="Enterprise and Architecture" data-topics="architecture solution design systems integration technology">
+                <div class="exam-meta"><span class="code-badge">A00-215</span><span class="vendor">Architecture</span></div>
+                <h4>A00-215 Solution Architecture</h4>
+                <p class="exam-description">A00-215 preparation covers solution architecture, system integration, technology selection, design tradeoffs, scalability, and practical solution planning.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Solution Design</span><span class="knowledge-tag">Integration</span><span class="knowledge-tag">Scalability</span><span class="knowledge-tag">Technology</span></div>
+                <p class="approach">Build architecture fundamentals first, then practice integration, scalability, technology selection, tradeoffs, and solution design scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://help.fumotousa.com/en-US/Community/Post/48938">View A00-215 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="OGA-031" data-vendor="Architecture" data-category="Enterprise and Architecture" data-topics="enterprise architecture strategy governance capabilities">
+                <div class="exam-meta"><span class="code-badge">OGA-031</span><span class="vendor">Architecture</span></div>
+                <h4>OGA-031 Architecture Practice</h4>
+                <p class="exam-description">This OGA-031 resource emphasizes enterprise architecture practice, strategic alignment, governance, capability planning, and architecture communication.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Strategy</span><span class="knowledge-tag">Governance</span><span class="knowledge-tag">Capabilities</span><span class="knowledge-tag">Communication</span></div>
+                <p class="approach">Connect architecture practice to business strategy, then reinforce governance, capability planning, communication, and structured decision making.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/get-ready-for-the-oga-031-exam-with-updated-dumps-2026">View OGA-031 architecture resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="GLO_CWM_LVL_1" data-vendor="Workforce Management" data-category="Enterprise and Architecture" data-topics="workforce management planning operations scheduling performance">
+                <div class="exam-meta"><span class="code-badge">GLO_CWM_LVL_1</span><span class="vendor">Workforce Management</span></div>
+                <h4>GLO CWM Level 1</h4>
+                <p class="exam-description">GLO CWM Level 1 preparation covers workforce management foundations, planning, scheduling, performance considerations, resource allocation, and operational coordination.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Workforce</span><span class="knowledge-tag">Scheduling</span><span class="knowledge-tag">Planning</span><span class="knowledge-tag">Performance</span></div>
+                <p class="approach">Learn workforce fundamentals, then practice planning, scheduling, resource allocation, performance measurement, and operational coordination scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://help.fumotousa.com/en-US/Community/Post/48933">View GLO CWM Level 1 resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="OGA-031" data-vendor="Architecture" data-category="Enterprise and Architecture" data-topics="enterprise systems strategy governance architecture planning">
+                <div class="exam-meta"><span class="code-badge">OGA-031</span><span class="vendor">Architecture</span></div>
+                <h4>OGA-031 Enterprise Systems</h4>
+                <p class="exam-description">OGA-031 enterprise systems study covers architecture planning, governance, strategic alignment, systems relationships, capabilities, and technology decisions.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Systems</span><span class="knowledge-tag">Strategy</span><span class="knowledge-tag">Governance</span><span class="knowledge-tag">Planning</span></div>
+                <p class="approach">Review enterprise architecture concepts, then practice systems relationships, governance, strategic alignment, and technology planning scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://profit.ly/user/kurrkupps/blog/get-ready-for-the-oga-031-exam-with-updated-dumps-2026">View OGA-031 systems resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Professional and Healthcare">
+            <div class="category-heading">
+              <h3>Professional and Healthcare</h3>
+              <span class="category-count">5 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="NAPLEX" data-vendor="Pharmacy" data-category="Professional and Healthcare" data-topics="pharmacy pharmacology patient care therapeutics medication safety">
+                <div class="exam-meta"><span class="code-badge">NAPLEX</span><span class="vendor">Pharmacy</span></div>
+                <h4>NAPLEX Pharmacy Practice</h4>
+                <p class="exam-description">NAPLEX preparation covers pharmacy practice, pharmacology, therapeutics, patient care, medication safety, calculations, and clinical decision making.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Pharmacology</span><span class="knowledge-tag">Therapeutics</span><span class="knowledge-tag">Safety</span><span class="knowledge-tag">Patient Care</span></div>
+                <p class="approach">Build clinical foundations first, then practice therapeutics, medication safety, calculations, patient care, and case-based clinical reasoning.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256969/selene427-Real-Updated-NAPLEX-Dumps">View NAPLEX preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CSP-Assessor" data-vendor="Professional" data-category="Professional and Healthcare" data-topics="assessment professional standards evaluation evidence compliance">
+                <div class="exam-meta"><span class="code-badge">CSP-Assessor</span><span class="vendor">Professional</span></div>
+                <h4>CSP Assessor</h4>
+                <p class="exam-description">CSP Assessor preparation focuses on assessment methods, evidence review, professional standards, evaluation, documentation, and consistent assessment decisions.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Assessment</span><span class="knowledge-tag">Evidence</span><span class="knowledge-tag">Standards</span><span class="knowledge-tag">Evaluation</span></div>
+                <p class="approach">Study assessment principles, then practice evidence evaluation, standards interpretation, documentation, and consistent decision making.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906959/">View CSP Assessor preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="L6M9" data-vendor="CIPS" data-category="Professional and Healthcare" data-topics="procurement supply management sourcing contracts purchasing">
+                <div class="exam-meta"><span class="code-badge">L6M9</span><span class="vendor">CIPS</span></div>
+                <h4>CIPS L6M9 Procurement</h4>
+                <p class="exam-description">L6M9 preparation covers procurement strategy, sourcing, supplier relationships, contracts, purchasing decisions, and supply management principles.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Procurement</span><span class="knowledge-tag">Sourcing</span><span class="knowledge-tag">Contracts</span><span class="knowledge-tag">Suppliers</span></div>
+                <p class="approach">Review procurement strategy first, then practice sourcing, supplier decisions, contract considerations, and purchasing scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256975/selene427-Real-Updated-CIPS-L6M9-Dumps">View L6M9 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="ACD101" data-vendor="Professional" data-category="Professional and Healthcare" data-topics="professional practice administration analysis standards">
+                <div class="exam-meta"><span class="code-badge">ACD101</span><span class="vendor">Professional</span></div>
+                <h4>ACD101 Professional Practice</h4>
+                <p class="exam-description">ACD101 professional practice preparation addresses standards, administrative processes, analytical thinking, documentation, and responsible workplace decisions.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Standards</span><span class="knowledge-tag">Administration</span><span class="knowledge-tag">Analysis</span><span class="knowledge-tag">Documentation</span></div>
+                <p class="approach">Study professional standards first, then reinforce administration, documentation, analysis, and responsible decision making through scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906878/">View ACD101 professional resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="4A0-114" data-vendor="Professional" data-category="Professional and Healthcare" data-topics="professional administration operations standards compliance">
+                <div class="exam-meta"><span class="code-badge">4A0-114</span><span class="vendor">Professional</span></div>
+                <h4>4A0-114 Professional Operations</h4>
+                <p class="exam-description">4A0-114 preparation focuses on professional operations, administration, standards, compliance, documentation, and structured workplace processes.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Operations</span><span class="knowledge-tag">Administration</span><span class="knowledge-tag">Compliance</span><span class="knowledge-tag">Standards</span></div>
+                <p class="approach">Review operational standards first, then practice administration, compliance, documentation, and workplace process scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://help.fumotousa.com/en-US/Community/Post/48932">View 4A0-114 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <section class="category-section" data-category="Specialized and Other">
+            <div class="category-heading">
+              <h3>Specialized and Other Certifications</h3>
+              <span class="category-count">9 exams</span>
+            </div>
+            <div class="exam-grid">
+
+              <article class="exam-card reveal" data-code="AD0-E327" data-vendor="Adobe" data-category="Specialized and Other" data-topics="Adobe experience manager digital content implementation development">
+                <div class="exam-meta"><span class="code-badge">AD0-E327</span><span class="vendor">Adobe</span></div>
+                <h4>Adobe AD0-E327</h4>
+                <p class="exam-description">AD0-E327 preparation covers Adobe digital experience concepts, implementation, content management, development workflows, and platform configuration considerations.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Adobe</span><span class="knowledge-tag">Content</span><span class="knowledge-tag">Implementation</span><span class="knowledge-tag">Development</span></div>
+                <p class="approach">Study Adobe platform foundations, then practice content workflows, implementation concepts, configuration, and development-focused scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGqthfimxR/">View AD0-E327 preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="1V0-41.20" data-vendor="VMware" data-category="Specialized and Other" data-topics="virtualization infrastructure VMware cloud administration">
+                <div class="exam-meta"><span class="code-badge">1V0-41.20</span><span class="vendor">VMware</span></div>
+                <h4>VMware 1V0-41.20 Foundations</h4>
+                <p class="exam-description">This VMware resource introduces virtualization, cloud infrastructure, platform administration, configuration, and relationships between virtual infrastructure components.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Virtualization</span><span class="knowledge-tag">Cloud</span><span class="knowledge-tag">Administration</span><span class="knowledge-tag">Infrastructure</span></div>
+                <p class="approach">Learn virtualization foundations first, then reinforce cloud concepts, administration, configuration, and infrastructure relationships through examples.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://www.instagram.com/prof.davidcooper/p/DeGq1eZCkoH/">View VMware 1V0-41.20 resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CSP-Assessor" data-vendor="Professional" data-category="Specialized and Other" data-topics="assessment evaluation evidence standards compliance">
+                <div class="exam-meta"><span class="code-badge">CSP-Assessor</span><span class="vendor">Professional</span></div>
+                <h4>CSP Assessor</h4>
+                <p class="exam-description">CSP Assessor preparation covers structured assessment, evidence evaluation, standards interpretation, compliance review, and consistent professional judgments.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Assessment</span><span class="knowledge-tag">Evidence</span><span class="knowledge-tag">Compliance</span><span class="knowledge-tag">Standards</span></div>
+                <p class="approach">Understand assessment methodology first, then practice evidence review, standards interpretation, documentation, and consistent assessment decisions.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906959/">View CSP Assessor resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="BL0-100" data-vendor="Technology" data-category="Specialized and Other" data-topics="technology fundamentals computing systems networks security">
+                <div class="exam-meta"><span class="code-badge">BL0-100</span><span class="vendor">Technology</span></div>
+                <h4>BL0-100 Technology Foundations</h4>
+                <p class="exam-description">BL0-100 technology preparation covers computing foundations, systems, networks, security concepts, troubleshooting, and everyday technology operations.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Computing</span><span class="knowledge-tag">Systems</span><span class="knowledge-tag">Networks</span><span class="knowledge-tag">Security</span></div>
+                <p class="approach">Start with computing fundamentals, then connect systems, networking, security, troubleshooting, and operational technology concepts.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256968/selene427-Real-BL0-100-Dumps">View BL0-100 technology resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="Introduction-to-IT" data-vendor="IT" data-category="Specialized and Other" data-topics="IT fundamentals hardware software networking security databases">
+                <div class="exam-meta"><span class="code-badge">Introduction-to-IT</span><span class="vendor">IT</span></div>
+                <h4>Introduction to IT</h4>
+                <p class="exam-description">Introduction to IT covers foundational computing concepts, hardware, software, networking, security, data, troubleshooting, and common technology terminology.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Hardware</span><span class="knowledge-tag">Software</span><span class="knowledge-tag">Networking</span><span class="knowledge-tag">Security</span></div>
+                <p class="approach">Build a broad technology foundation first, then reinforce hardware, software, networking, security, data, and troubleshooting concepts.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://bestdori.com/community/posts/256966/selene427-Introduction-to-IT-Exam-Dumps-2026-Updated-Questions">View Introduction to IT resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="CT-PT" data-vendor="Technology" data-category="Specialized and Other" data-topics="technology project testing quality systems implementation">
+                <div class="exam-meta"><span class="code-badge">CT-PT</span><span class="vendor">Technology</span></div>
+                <h4>CT-PT Technology Practice</h4>
+                <p class="exam-description">CT-PT preparation addresses technology practice, testing concepts, quality considerations, implementation workflows, and structured technical problem solving.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Testing</span><span class="knowledge-tag">Quality</span><span class="knowledge-tag">Implementation</span><span class="knowledge-tag">Systems</span></div>
+                <p class="approach">Review technical foundations, then practice testing, quality decisions, implementation workflows, and structured problem solving through scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906874/">View CT-PT preparation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="300-815" data-vendor="Technology" data-category="Specialized and Other" data-topics="automation networking APIs programmability infrastructure">
+                <div class="exam-meta"><span class="code-badge">300-815</span><span class="vendor">Technology</span></div>
+                <h4>300-815 Network Automation</h4>
+                <p class="exam-description">300-815 preparation focuses on network automation, APIs, programmability, infrastructure integration, software concepts, and operational efficiency.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Automation</span><span class="knowledge-tag">APIs</span><span class="knowledge-tag">Networking</span><span class="knowledge-tag">Programmability</span></div>
+                <p class="approach">Study programmable networking fundamentals, then practice APIs, automation, software concepts, and infrastructure integration scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906870/">View 300-815 network automation resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="ACD101" data-vendor="Technology" data-category="Specialized and Other" data-topics="technology systems administration data security operations">
+                <div class="exam-meta"><span class="code-badge">ACD101</span><span class="vendor">Technology</span></div>
+                <h4>ACD101 Technology Operations</h4>
+                <p class="exam-description">ACD101 technology operations preparation covers systems, administration, data, security, operational processes, and practical technical troubleshooting.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Systems</span><span class="knowledge-tag">Administration</span><span class="knowledge-tag">Security</span><span class="knowledge-tag">Operations</span></div>
+                <p class="approach">Review technology operations fundamentals, then practice systems administration, security, data handling, and troubleshooting decisions.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906878/">View ACD101 technology resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+              <article class="exam-card reveal" data-code="H13-711" data-vendor="Technology" data-category="Specialized and Other" data-topics="technology infrastructure systems networking administration">
+                <div class="exam-meta"><span class="code-badge">H13-711</span><span class="vendor">Technology</span></div>
+                <h4>H13-711 Technology Infrastructure</h4>
+                <p class="exam-description">H13-711 preparation addresses technology infrastructure, systems administration, networking, service operations, monitoring, and technical maintenance.</p>
+                <div class="knowledge-label">Key knowledge areas</div>
+                <div class="knowledge-tags"><span class="knowledge-tag">Infrastructure</span><span class="knowledge-tag">Systems</span><span class="knowledge-tag">Networking</span><span class="knowledge-tag">Maintenance</span></div>
+                <p class="approach">Build infrastructure fundamentals, then reinforce systems administration, networking, monitoring, maintenance, and operational troubleshooting scenarios.</p>
+                <div class="resource-area">
+                  <a class="resource-button" href="https://xfdev.yesterdaystractors.com/index.php?threads/1906864/">View H13-711 technology resource <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+        </div>
+
+        <div class="no-results" id="no-results">
+          <h3>No matching exams found</h3>
+          <p>Try a different exam code, vendor, category, or subject such as security, networking, database, or automation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section guide" id="guide">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Build a practical routine</p>
+          <h2>Preparation Guide</h2>
+          <p>A strong study plan combines official information, hands-on work, deliberate practice, and regular review rather than relying on one resource alone.</p>
+        </div>
+
+        <div class="guide-grid">
+          <article class="guide-card reveal">
+            <span class="guide-number">01</span>
+            <h3>Define the objectives</h3>
+            <p>Start with the current exam information available from the certification provider. Identify the major domains and the skills they describe.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">02</span>
+            <h3>Set a realistic schedule</h3>
+            <p>Divide the available time into focused sessions. Give additional time to difficult domains instead of treating every topic equally.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">03</span>
+            <h3>Learn concepts before memorization</h3>
+            <p>Understand why a technology or process works before memorizing terminology. Conceptual understanding makes unfamiliar scenarios easier to reason through.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">04</span>
+            <h3>Use official documentation</h3>
+            <p>Use vendor documentation, product guides, standards, manuals, and other authoritative material to establish accurate technical foundations.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">05</span>
+            <h3>Practice hands-on</h3>
+            <p>When possible, use labs, sandboxes, command-line exercises, configuration tasks, case studies, or real projects to turn theory into working knowledge.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">06</span>
+            <h3>Use practice questions responsibly</h3>
+            <p>Practice questions are most useful when they expose gaps in understanding. Review why an answer is correct instead of memorizing answer patterns.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">07</span>
+            <h3>Track weak areas</h3>
+            <p>Keep a short list of topics that cause repeated mistakes. Turn those topics into focused review sessions rather than repeatedly taking broad tests.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">08</span>
+            <h3>Add timed sessions</h3>
+            <p>Once the fundamentals are familiar, use timed practice to improve pacing, reading accuracy, decision speed, and concentration.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">09</span>
+            <h3>Track your progress</h3>
+            <p>Record completed domains, lab work, practice results, and recurring mistakes. A simple progress record makes revision more targeted.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">10</span>
+            <h3>Revisit hard topics</h3>
+            <p>Return to difficult subjects after a short interval. Explaining the concept in your own words is a useful check of understanding.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">11</span>
+            <h3>Review across domains</h3>
+            <p>After focused study, mix several domains in one session. This helps you switch between concepts and recognize which knowledge applies to each situation.</p>
+          </article>
+
+          <article class="guide-card reveal">
+            <span class="guide-number">12</span>
+            <h3>Keep final preparation simple</h3>
+            <p>In the final days, prioritize concise notes, difficult topics, official updates, practical reminders, and healthy pacing instead of starting large new subjects.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Common questions</p>
+          <h2>Frequently Asked Questions</h2>
+          <p>Simple answers to common questions about organizing certification study and using preparation resources effectively.</p>
+        </div>
+
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>How should I start preparing for a certification exam?</span>
+              <svg class="icon-small faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">Begin with the current exam information and identify its major knowledge areas. Establish your baseline knowledge, choose authoritative study material, and create a schedule that gives extra time to unfamiliar topics.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>How can I identify the key topics I need to study?</span>
+              <svg class="icon-small faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">Start with the current exam guide or objective information provided by the relevant certification organization. Use it to create a checklist, then compare your knowledge and practical experience against each area.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>How should I organize a study schedule?</span>
+              <svg class="icon-small faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">Break the available time into manageable sessions. Alternate learning, hands-on work, review, and timed practice. Reallocate time toward domains where your understanding remains weak.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Should I learn concepts or focus on practice questions?</span>
+              <svg class="icon-small faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">Use both, but build understanding first. Practice questions can reveal gaps and improve application, while concepts, documentation, and hands-on work provide the foundation needed to handle unfamiliar situations.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>What should I do when I keep missing questions from one topic?</span>
+              <svg class="icon-small faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">Pause broad testing and return to that subject. Read authoritative material, work through a practical example if possible, explain the concept in your own words, and then retest yourself.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>How important are official documentation and guides?</span>
+              <svg class="icon-small faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">They are important because they provide authoritative technical context and help you understand terminology, features, workflows, and current product or certification information.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>What should I focus on during the final days?</span>
+              <svg class="icon-small faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">Review weak areas, concise notes, difficult concepts, practical procedures, and current official information. Use a small amount of timed practice and avoid replacing sleep or recovery with excessive last-minute study.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h2>ExamPrep Resources</h2>
+          <p>A structured educational portal for discovering certification preparation resources, understanding subject areas, and building practical study routines.</p>
+        </div>
+
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="#library">Exam Library</a></li>
+            <li><a href="#guide">Preparation Guide</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#top">Back to top</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Categories</h3>
+          <ul>
+            <li><a href="#library">DevOps and Cloud</a></li>
+            <li><a href="#library">Cybersecurity</a></li>
+            <li><a href="#library">Artificial Intelligence</a></li>
+            <li><a href="#library">Business and Management</a></li>
+            <li><a href="#library">Networking and Infrastructure</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="disclaimer">Independent educational resource. Not affiliated with or endorsed by any certification vendor, provider, or organization mentioned on this site.</span>
+        <span class="disclaimer">© 2026 ExamPrep Resources</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const header = document.getElementById("site-header");
+      const progressLine = document.getElementById("progress-line");
+      const searchInput = document.getElementById("exam-search");
+      const clearSearch = document.getElementById("clear-search");
+      const searchStatus = document.getElementById("search-status");
+      const noResults = document.getElementById("no-results");
+      const filters = document.getElementById("category-filters");
+      const headerSearch = document.getElementById("header-search");
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuOpenIcon = document.querySelector(".menu-open-icon");
+      const menuCloseIcon = document.querySelector(".menu-close-icon");
+
+      const cards = Array.from(document.querySelectorAll(".exam-card"));
+      const categorySections = Array.from(document.querySelectorAll(".category-section"));
+
+      const normalize = value => (value || "").toLowerCase().trim();
+
+      const escapeRegExp = value =>
+        value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+      const escapeHtml = value =>
+        value
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+
+      const originalText = new WeakMap();
+
+      cards.forEach(card => {
+        ["h4", ".exam-description", ".approach", ".code-badge", ".vendor", ".knowledge-label", ".knowledge-tags"].forEach(selector => {
+          const element = card.querySelector(selector);
+          if (element) {
+            originalText.set(element, element.innerHTML);
+          }
+        });
+      });
+
+      function updateStats() {
+        const resourceCount = document.querySelectorAll(".exam-card .resource-area a.resource-button").length;
+        const categoryCount = new Set(cards.map(card => card.dataset.category)).size;
+
+        document.getElementById("total-exams").textContent = cards.length;
+        document.getElementById("total-resources").textContent = resourceCount;
+        document.getElementById("total-categories").textContent = categoryCount;
+      }
+
+      function createFilters() {
+        const categories = [...new Set(cards.map(card => card.dataset.category))];
+
+        const allButton = document.createElement("button");
+        allButton.type = "button";
+        allButton.className = "filter-chip active";
+        allButton.dataset.category = "all";
+        allButton.textContent = "All categories";
+        filters.appendChild(allButton);
+
+        categories.forEach(category => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "filter-chip";
+          button.dataset.category = category;
+          button.textContent = category;
+          filters.appendChild(button);
+        });
+      }
+
+      let activeCategory = "all";
+
+      function restoreCardText(card) {
+        ["h4", ".exam-description", ".approach", ".code-badge", ".vendor", ".knowledge-label", ".knowledge-tags"].forEach(selector => {
+          const element = card.querySelector(selector);
+          if (element && originalText.has(element)) {
+            element.innerHTML = originalText.get(element);
+          }
+        });
+      }
+
+      function highlightCard(card, term) {
+        restoreCardText(card);
+
+        if (!term) return;
+
+        const escaped = escapeRegExp(term);
+
+        ["h4", ".exam-description", ".approach", ".code-badge", ".vendor", ".knowledge-label", ".knowledge-tags"].forEach(selector => {
+          const element = card.querySelector(selector);
+          if (!element) return;
+
+          const source = element.textContent;
+          const regex = new RegExp(`(${escaped})`, "gi");
+
+          element.innerHTML = escapeHtml(source).replace(regex, '<mark class="highlight">$1</mark>');
+        });
+      }
+
+      function cardMatches(card, term) {
+        if (!term) return true;
+
+        const haystack = [
+          card.dataset.code,
+          card.dataset.vendor,
+          card.dataset.category,
+          card.dataset.topics,
+          card.querySelector("h4")?.textContent,
+          card.querySelector(".exam-description")?.textContent,
+          card.querySelector(".approach")?.textContent,
+          card.querySelector(".knowledge-tags")?.textContent
+        ].join(" ");
+
+        return normalize(haystack).includes(normalize(term));
+      }
+
+      function applySearch() {
+        const term = normalize(searchInput.value);
+        let visibleCount = 0;
+
+        categorySections.forEach(section => {
+          let sectionVisible = 0;
+
+          section.querySelectorAll(".exam-card").forEach(card => {
+            const categoryMatch = activeCategory === "all" || card.dataset.category === activeCategory;
+            const searchMatch = cardMatches(card, term);
+            const visible = categoryMatch && searchMatch;
+
+            card.classList.toggle("is-hidden", !visible);
+            card.classList.toggle("search-match", Boolean(term && visible));
+
+            if (visible) {
+              visibleCount++;
+              sectionVisible++;
+              highlightCard(card, term);
+            } else {
+              restoreCardText(card);
+            }
+          });
+
+          section.style.display = sectionVisible ? "" : "none";
+        });
+
+        noResults.classList.toggle("visible", visibleCount === 0);
+
+        if (term || activeCategory !== "all") {
+          searchStatus.textContent = `${visibleCount} exam${visibleCount === 1 ? "" : "s"} found`;
+        } else {
+          searchStatus.textContent = `${cards.length} exams available`;
+        }
+
+        clearSearch.classList.toggle("visible", Boolean(searchInput.value));
+      }
+
+      filters.addEventListener("click", event => {
+        const button = event.target.closest(".filter-chip");
+        if (!button) return;
+
+        activeCategory = button.dataset.category;
+
+        filters.querySelectorAll(".filter-chip").forEach(chip => {
+          chip.classList.toggle("active", chip === button);
+        });
+
+        applySearch();
+      });
+
+      searchInput.addEventListener("input", applySearch);
+
+      clearSearch.addEventListener("click", () => {
+        searchInput.value = "";
+        searchInput.focus();
+        applySearch();
+      });
+
+      headerSearch.addEventListener("click", () => {
+        document.getElementById("hero-search").scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => searchInput.focus(), 300);
+      });
+
+      function setMenu(open) {
+        menuToggle.setAttribute("aria-expanded", String(open));
+        mobileMenu.classList.toggle("open", open);
+        document.body.classList.toggle("menu-open", open);
+        menuOpenIcon.style.display = open ? "none" : "block";
+        menuCloseIcon.style.display = open ? "block" : "none";
+        menuToggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+      }
+
+      menuToggle.addEventListener("click", () => {
+        setMenu(menuToggle.getAttribute("aria-expanded") !== "true");
+      });
+
+      mobileMenu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => setMenu(false));
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && mobileMenu.classList.contains("open")) {
+          setMenu(false);
+          menuToggle.focus();
+        }
+      });
+
+      function updateScrollUI() {
+        const scrollTop = window.scrollY;
+        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = documentHeight > 0 ? (scrollTop / documentHeight) * 100 : 0;
+
+        progressLine.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+        header.classList.toggle("scrolled", scrollTop > 40);
+      }
+
+      window.addEventListener("scroll", updateScrollUI, { passive: true });
+
+      document.querySelectorAll(".faq-question").forEach(button => {
+        button.addEventListener("click", () => {
+          const item = button.closest(".faq-item");
+          const isOpen = item.classList.contains("open");
+
+          document.querySelectorAll(".faq-item.open").forEach(openItem => {
+            if (openItem !== item) {
+              openItem.classList.remove("open");
+              openItem.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+            }
+          });
+
+          item.classList.toggle("open", !isOpen);
+          button.setAttribute("aria-expanded", String(!isOpen));
+        });
+      });
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!reducedMotion && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          });
+        }, {
+          threshold: 0.08,
+          rootMargin: "0px 0px -30px 0px"
+        });
+
+        document.querySelectorAll(".reveal").forEach((element, index) => {
+          element.style.transitionDelay = `${Math.min(index % 8, 7) * 35}ms`;
+          observer.observe(element);
+        });
+      } else {
+        document.querySelectorAll(".reveal").forEach(element => element.classList.add("visible"));
+      }
+
+      updateStats();
+      createFilters();
+      applySearch();
+      updateScrollUI();
+    })();
+  </script>
+</body>
+</html>
